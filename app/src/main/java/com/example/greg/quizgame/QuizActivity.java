@@ -1,5 +1,7 @@
 package com.example.greg.quizgame;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,10 +35,21 @@ public class QuizActivity extends AppCompatActivity {
 
             toast.show();
                             }
-
-
-
         );
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage("Place Holder")
+                .setTitle("Place Holder")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
 
     }
 }
