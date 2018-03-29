@@ -27,6 +27,7 @@
         <activity android:name="com.example.greg.octranspo.MainActivity"/>
         <activity android:name="com.example.greg.octranspo.SearchStopsActivity" />
         <activity android:name="com.example.greg.octranspo.StopDetailsActivity"/>
+        <activity android:name="com.example.greg.quizgame.QuizActivity"></activity>
     </application>
 
 </manifest>
