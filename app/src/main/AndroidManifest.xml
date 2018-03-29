@@ -16,6 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--
+        OC Tranpso Activities
+        -->
+
+        <activity android:name="com.example.greg.octranspo.MainActivity"/>
+        <activity android:name="com.example.greg.octranspo.SearchStopsActivity" />
+        <activity android:name="com.example.greg.octranspo.StopDetailsActivity"/>
+        <activity android:name="com.example.greg.quizgame.QuizActivity"></activity>
     </application>
 
 </manifest>
