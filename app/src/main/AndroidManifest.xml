@@ -17,13 +17,14 @@
             </intent-filter>
         </activity>
 
-        <!--         OC Tranpso Activities -->
+        <!-- OC Tranpso Activities -->
 
         <activity android:name="com.example.greg.octranspo.MainActivity" />
         <activity android:name="com.example.greg.octranspo.SearchStopsActivity" />
         <activity android:name="com.example.greg.octranspo.StopDetailsActivity" />
         <activity android:name="com.example.greg.quizgame.QuizActivity" />
-        <activity android:name="com.example.greg.patientintake.PatientActivity"></activity>
+        <activity android:name="com.example.greg.patientintake.PatientActivity" />
+        <activity android:name="com.example.greg.movieform.MovieActivity"></activity>
     </application>
 
 </manifest>

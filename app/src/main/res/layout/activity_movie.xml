@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.greg.quizgame.QuizActivity">
+    tools:context="com.example.greg.movieform.MovieActivity">
 
 
     <ListView
@@ -39,6 +39,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="@string/quizButton" />
+        android:text="@string/movieButton" />
 
 </RelativeLayout>

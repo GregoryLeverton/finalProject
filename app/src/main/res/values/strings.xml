@@ -7,5 +7,6 @@
     <string name="quizButton">Im a quiz button</string>
     <string name="jasonButton">Jason Meredith - OCTranspo Bus Route</string>
     <string name="patientButton">Im a patient intake form button</string>
+    <string name="movieButton">Im a movie button</string>
 
 </resources>
