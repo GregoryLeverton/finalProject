@@ -24,5 +24,13 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(launchJasonActivity);
             }
         });
+
+        buttonGreg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchJasonActivity = new Intent(StartActivity.this, com.example.greg.quizgame.QuizActivity.class);
+                startActivity(launchJasonActivity);
+            }
+        });
     }
 }

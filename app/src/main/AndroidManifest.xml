@@ -23,6 +23,9 @@
         <activity android:name="com.example.greg.octranspo.SearchStopsActivity" />
         <activity android:name="com.example.greg.octranspo.StopDetailsActivity" />
         <activity android:name="com.example.greg.quizgame.QuizActivity" />
+        <activity
+            android:name="com.example.greg.quizgame.MessageDetails"
+            android:theme="@style/Theme.AppCompat" />
         <activity android:name="com.example.greg.patientintake.PatientActivity" />
         <activity android:name="com.example.greg.movieform.MovieActivity"></activity>
     </application>

@@ -18,7 +18,7 @@ public class MovieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
 
-        Button button1 = (Button)findViewById(R.id.quiz_button);
+        Button button1 = (Button)findViewById(R.id.new_question);
 
 
 

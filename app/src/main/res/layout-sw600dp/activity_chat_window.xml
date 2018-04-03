@@ -4,24 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.greg.movieform.MovieActivity">
+    tools:context="com.example.greg.quizgame.QuizActivity">
 
 
     <ListView
         android:id="@+id/list"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true" />
 
-    <ProgressBar
-        android:id="@+id/progress"
+    <FrameLayout
+        android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:visibility="invisible" />
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/new_question">
+
+
+    </FrameLayout>
+
 
     <EditText
         android:id="@+id/chatText"
@@ -38,7 +39,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:text="@string/movieButton" />
+        android:layout_alignEnd="@+id/list"
+        android:text="@string/quizButton" />
+
 
 </RelativeLayout>
