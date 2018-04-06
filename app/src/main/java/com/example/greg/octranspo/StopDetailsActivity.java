@@ -1,6 +1,8 @@
 package com.example.greg.octranspo;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +34,8 @@ public class StopDetailsActivity extends Activity {
     private ProgressBar progressBar;
     private TextView stopName;
 
+    private boolean tablet;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,9 @@ public class StopDetailsActivity extends Activity {
 
         stopId = this.getIntent().getShortExtra("stopId", (short) 0);
 
+        //"95", "Barrhaven Centre", "3000"
+
+
         Log.i("StopDetailsActivity", "StopID: " + stopId);
 
         new BusStopSearch() {
@@ -53,7 +60,7 @@ public class StopDetailsActivity extends Activity {
             }
         }.execute(stopId);
 
-
+        tablet = findViewById(R.id.stop_details_fragment) != null;
 
 
         //* Get stopId from intent
@@ -134,6 +141,7 @@ public class StopDetailsActivity extends Activity {
 
             //routeNumTxt.setText("sdfs");
 
+
             routeNumTxt.setText(String.valueOf(route.getRouteNumber()));
             routeNameTxt.setText(route.getRouteHeading());
             // todo make an arrow pointing in the route direction
@@ -142,6 +150,28 @@ public class StopDetailsActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     // todo load route times fragment
+
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("routeNum", String.valueOf(route.getRouteNumber()));
+                    bundle.putString("routeName", route.getRouteHeading());
+                    bundle.putShort("stopId", stopId);
+
+                    if(tablet) {
+                        FragmentManager fragmentManager = StopDetailsActivity.this.getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        RouteDetailsFragment fragment = new RouteDetailsFragment();
+                        fragmentTransaction.replace(R.id.stop_details_fragment, fragment, "routeDetails");
+                        fragment.setArguments(bundle);
+                        fragmentTransaction.commit();
+                    } else {
+                        // Small screen, load RouteDetailsActivity;
+                        Intent intent = new Intent(StopDetailsActivity.this, RouteDetailsActivity.class);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+
                 }
             });
 

@@ -28,7 +28,8 @@
         <activity android:name="com.example.greg.quizgame.QuizActivity" />
         <activity android:name="com.example.greg.patientintake.PatientActivity" />
         <activity android:name="com.example.greg.movieform.MovieActivity" />
-        <activity android:name="com.example.greg.octranspo.InfoActivity"></activity>
+        <activity android:name="com.example.greg.octranspo.InfoActivity" />
+        <activity android:name="com.example.greg.octranspo.RouteDetailsActivity"></activity>
     </application>
 
 </manifest>
