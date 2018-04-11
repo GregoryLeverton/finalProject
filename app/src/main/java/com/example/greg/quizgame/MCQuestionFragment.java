@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,9 @@ import android.widget.EditText;
 
 import com.example.greg.finalproject.R;
 
-public class QuestionFragment extends Fragment {
+public class MCQuestionFragment extends Fragment {
 
+    protected static final String ACTIVITY_NAME ="MCQuestionFragment";
     private boolean isTablet;
     private EditText QuestionView;
     private EditText A1View;
@@ -60,6 +62,7 @@ public class QuestionFragment extends Fragment {
         String cor = new Integer(bundle.getInt("CorrectAnswer")).toString();
         final long id = bundle.getLong("ID");
         final long id_inChat= bundle.getLong("IDInChat");
+        Log.i(ACTIVITY_NAME,id+" "+id_inChat+" "+isTablet);
 
         QuestionView.setText(question);
         A1View.setText(A1);
@@ -73,11 +76,11 @@ public class QuestionFragment extends Fragment {
             if(isTablet){
                 QuizActivity qa = (QuizActivity)getActivity();
                 qa.deleteForTablet(id, id_inChat);
-                getFragmentManager().beginTransaction().remove(QuestionFragment.this).commit();
+                getFragmentManager().beginTransaction().remove(MCQuestionFragment.this).commit();
             }else{
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("action", 1);
-                resultIntent.putExtra("DeleteTD", id);
+                resultIntent.putExtra("DeleteID", id);
                 resultIntent.putExtra("IDInChat", id_inChat);
                 getActivity().setResult(Activity.RESULT_OK, resultIntent);
                 getActivity().finish();
@@ -97,9 +100,11 @@ public class QuestionFragment extends Fragment {
             if(isTablet){
                 QuizActivity qa = (QuizActivity)getActivity();
                 qa.deleteForTablet(id, id_inChat);
-                getFragmentManager().beginTransaction().remove(QuestionFragment.this).commit();
+                qa.updateMC(newQ, newA1, newA2, newA3, newA4, newCor);
+                getFragmentManager().beginTransaction().remove(MCQuestionFragment.this).commit();
             }else{
                 Intent resultIntent = new Intent();
+                resultIntent.putExtra("type", 1);
                 resultIntent.putExtra("action", 2);
                 resultIntent.putExtra("Question", newQ);
                 resultIntent.putExtra("Answer1", newA1);
@@ -107,7 +112,7 @@ public class QuestionFragment extends Fragment {
                 resultIntent.putExtra("Answer3", newA3);
                 resultIntent.putExtra("Answer4", newA4);
                 resultIntent.putExtra("Correct", newCor);
-                resultIntent.putExtra("UpdateTD", id);
+                resultIntent.putExtra("UpdateID", id);
                 resultIntent.putExtra("IDInChat", id_inChat);
                 getActivity().setResult(Activity.RESULT_OK, resultIntent);
                 getActivity().finish();
@@ -119,7 +124,7 @@ public class QuestionFragment extends Fragment {
             if(isTablet){
                 QuizActivity qa = (QuizActivity)getActivity();
 
-                getFragmentManager().beginTransaction().remove(QuestionFragment.this).commit();
+                getFragmentManager().beginTransaction().remove(MCQuestionFragment.this).commit();
             }else{
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("action", 3);
@@ -128,7 +133,7 @@ public class QuestionFragment extends Fragment {
                 getActivity().finish();
             }
 
-        
+
         });
 
         return gui;

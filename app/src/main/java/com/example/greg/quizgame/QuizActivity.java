@@ -19,6 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +38,8 @@ public class QuizActivity extends AppCompatActivity {
     String keyID = ChatDatabaseHelper.KEY_ID;
     String keyMsg = ChatDatabaseHelper.KEY_QUESTION;
     ArrayList<Question> questions = new ArrayList<>();
-    QuestionAdapter messageAdapter;
+    int tfA = 0;
+    QuestionAdapter questionAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(ACTIVITY_NAME, "In onCreate()");
@@ -47,8 +50,9 @@ public class QuizActivity extends AppCompatActivity {
         ListView chat = findViewById(R.id.list);
         //EditText textInput = findViewById(R.id.chatText);
         Button newMC = findViewById(R.id.new_MC);
-        messageAdapter =new QuestionAdapter( this );
-        chat.setAdapter (messageAdapter);
+        Button newTF = findViewById(R.id.new_TF);
+        questionAdapter =new QuestionAdapter( this );
+        chat.setAdapter (questionAdapter);
         ChatDatabaseHelper myOpener = new ChatDatabaseHelper(this);
         db = myOpener.getWritableDatabase();
 
@@ -57,7 +61,8 @@ public class QuizActivity extends AppCompatActivity {
 
         while(!cursor.isAfterLast() ) {
             Question question;
-            //if(cursor.getInt(cursor.getColumnIndex(ChatDatabaseHelper.KEY_TYPE))==1) {
+            if(cursor.getInt(cursor.getColumnIndex(ChatDatabaseHelper.KEY_TYPE))==1) {
+
                 String q = cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_QUESTION));
                 String a1 = cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_ANSWER1));
                 String a2 = cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_ANSWER2));
@@ -65,7 +70,7 @@ public class QuizActivity extends AppCompatActivity {
                 String a4 = cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_ANSWER4));
                 int c = cursor.getInt(cursor.getColumnIndex(ChatDatabaseHelper.KEY_CORRECT));
                 question = new MCQuestion(q, a1, a2, a3, a4, c);
-            /*}else if(cursor.getInt(cursor.getColumnIndex(ChatDatabaseHelper.KEY_TYPE))==2) {
+            }else if(cursor.getInt(cursor.getColumnIndex(ChatDatabaseHelper.KEY_TYPE))==2) {
                 String q = cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_QUESTION));
                 boolean a = cursor.getInt(cursor.getColumnIndex(ChatDatabaseHelper.KEY_CORRECT)) == 1;
                 question = new TFQuestion(q, a);
@@ -78,7 +83,7 @@ public class QuizActivity extends AppCompatActivity {
 
             }else{
                 question = null;
-            }*/
+            }
             questions.add(question);
             Log.i(ACTIVITY_NAME, "SQL MESSAGE:" + cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_QUESTION)));
             cursor.moveToNext();
@@ -90,102 +95,212 @@ public class QuizActivity extends AppCompatActivity {
 
         newMC.setOnClickListener(e ->{
 
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
 
-            final View view=this.getLayoutInflater().inflate(R.layout.mc_dialog,null);
+                    final View view=this.getLayoutInflater().inflate(R.layout.mc_dialog,null);
 
-            builder1.setView(view);
+                    builder1.setView(view);
 
-            builder1.setPositiveButton(R.string.newMC, new DialogInterface.OnClickListener() {
+                    builder1.setPositiveButton(R.string.newMC, new DialogInterface.OnClickListener() {
 
-                public void onClick(DialogInterface dialog, int id) {
+                        public void onClick(DialogInterface dialog, int id) {
 
-                    EditText ques = (EditText)view.findViewById(R.id.newQuestion);
-                    EditText answer1 = (EditText)view.findViewById(R.id.answer1);
-                    EditText answer2 = (EditText)view.findViewById(R.id.answer2);
-                    EditText answer3 = (EditText)view.findViewById(R.id.answer3);
-                    EditText answer4 = (EditText)view.findViewById(R.id.answer4);
-                    EditText correct = (EditText)view.findViewById(R.id.correct);
+                            EditText ques = (EditText)view.findViewById(R.id.newQuestion);
+                            EditText answer1 = (EditText)view.findViewById(R.id.answer1);
+                            EditText answer2 = (EditText)view.findViewById(R.id.answer2);
+                            EditText answer3 = (EditText)view.findViewById(R.id.answer3);
+                            EditText answer4 = (EditText)view.findViewById(R.id.answer4);
+                            EditText correct = (EditText)view.findViewById(R.id.correct);
 
-                    String q = ques.getText().toString();
-                    String a1= answer1.getText().toString();
-                    String a2= answer2.getText().toString();
-                    String a3= answer3.getText().toString();
-                    String a4= answer4.getText().toString();
-                    int c= Integer.parseInt(correct.getText().toString());
-                    Question question = new MCQuestion(q, a1, a2, a3, a4, c);
-                    questions.add(question);
+                            String q = ques.getText().toString();
+                            String a1= answer1.getText().toString();
+                            String a2= answer2.getText().toString();
+                            String a3= answer3.getText().toString();
+                            String a4= answer4.getText().toString();
+                            int c= Integer.parseInt(correct.getText().toString());
+                            MCQuestion question = new MCQuestion(q, a1, a2, a3, a4, c);
+                            questions.add(question);
 
-                    ContentValues cv = new ContentValues();
-                    cv.put(ChatDatabaseHelper.KEY_QUESTION,q);
-                    cv.put(ChatDatabaseHelper.KEY_ANSWER1,a1);
-                    cv.put(ChatDatabaseHelper.KEY_ANSWER2,a2);
-                    cv.put(ChatDatabaseHelper.KEY_ANSWER3,a3);
-                    cv.put(ChatDatabaseHelper.KEY_ANSWER4,a4);
-                    cv.put(ChatDatabaseHelper.KEY_CORRECT,c);
+                            ContentValues cv = new ContentValues();
+                            cv.put(ChatDatabaseHelper.KEY_TYPE, 1);
+                            cv.put(ChatDatabaseHelper.KEY_QUESTION,q);
+                            cv.put(ChatDatabaseHelper.KEY_ANSWER1,a1);
+                            cv.put(ChatDatabaseHelper.KEY_ANSWER2,a2);
+                            cv.put(ChatDatabaseHelper.KEY_ANSWER3,a3);
+                            cv.put(ChatDatabaseHelper.KEY_ANSWER4,a4);
+                            cv.put(ChatDatabaseHelper.KEY_CORRECT,c);
 
-                    db.insert(ChatDatabaseHelper.TABLE_NAME, "Null replacement value", cv);
-                    cursor =db.rawQuery("SELECT * FROM "+ChatDatabaseHelper.TABLE_NAME+";", null);
+                            db.insert(ChatDatabaseHelper.TABLE_NAME, "Null replacement value", cv);
+                            cursor =db.rawQuery("SELECT * FROM "+ChatDatabaseHelper.TABLE_NAME+";", null);
 
-                    cursor.moveToFirst();
+                            cursor.moveToFirst();
 
-                    messageAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
+                            questionAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
 
-                }
-            });
+                        }
+                    });
 
-            builder1.setNegativeButton(R.string.newQCancel, new DialogInterface.OnClickListener() {
+                    builder1.setNegativeButton(R.string.newQCancel, new DialogInterface.OnClickListener() {
 
-                public void onClick(DialogInterface dialog, int id) {
+                        public void onClick(DialogInterface dialog, int id) {
 
 
 
-                }
+                        }
 
-            });
+                    });
 
-            AlertDialog dialog1 = builder1.create();
+                    AlertDialog dialog1 = builder1.create();
 
-            dialog1.show();
+                    dialog1.show();
                 }
         );
 
+        newTF.setOnClickListener(e ->{
+
+            //while(a1!=1 || a1!=2){
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+
+                    final View view=this.getLayoutInflater().inflate(R.layout.tf_dialog,null);
+
+                    builder1.setView(view);
+
+                    builder1.setPositiveButton(R.string.newTF, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            EditText ques = (EditText)view.findViewById(R.id.newTFQuestion);
+                            RadioGroup answer = (RadioGroup) view.findViewById(R.id.TFGroup);
+
+                            RadioButton trueButton = (RadioButton) view.findViewById(R.id.trueButton);
+                            RadioButton falseButton = (RadioButton) view.findViewById(R.id.falseButton);
+
+                            trueButton.setOnClickListener((view)->{
+                                        setTF(1);
+                                    }
+                           );
+
+                            falseButton.setOnClickListener((view)->{
+                                setTF(2);
+                                    }
+
+
+                            );
+
+                            String q = ques.getText().toString();
+
+
+
+
+                            TFQuestion question = new TFQuestion(q, tfA==1);
+
+                            Log.i(ACTIVITY_NAME, tfA+" "+new Boolean(question.isAnswer()).toString());
+                            questions.add(question);
+
+                            ContentValues cv = new ContentValues();
+                            cv.put(ChatDatabaseHelper.KEY_TYPE, 2);
+                            cv.put(ChatDatabaseHelper.KEY_QUESTION,q);
+                            cv.put(ChatDatabaseHelper.KEY_CORRECT,tfA);
+
+
+                            db.insert(ChatDatabaseHelper.TABLE_NAME, "Null replacement value", cv);
+                            cursor =db.rawQuery("SELECT * FROM "+ChatDatabaseHelper.TABLE_NAME+";", null);
+
+                            cursor.moveToFirst();
+
+                            questionAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
+
+                        }
+                    });
+
+                    builder1.setNegativeButton(R.string.newQCancel, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int id) {
+
+
+
+                        }
+
+                    });
+
+                    AlertDialog dialog1 = builder1.create();
+
+                    dialog1.show();
+                }//}
+        );
+
         chat.setOnItemClickListener((adapterView, view, position, id) ->{
-            String ques =messageAdapter.getItem(position).getQuestion();
-            String ans1 = ((MCQuestion)messageAdapter.getItem(position)).getAnswer1();
-            String ans2 = ((MCQuestion)messageAdapter.getItem(position)).getAnswer2();
-            String ans3 = ((MCQuestion)messageAdapter.getItem(position)).getAnswer3();
-            String ans4 = ((MCQuestion)messageAdapter.getItem(position)).getAnswer4();
-            int cor  = ((MCQuestion)messageAdapter.getItem(position)).getCorrectAnswer();
+            int type = questionAdapter.getItem(position).getType();
 
-            Long id_inChat = messageAdapter.getId(position);
+            if(type ==1) {
+                String ques = questionAdapter.getItem(position).getQuestion();
+                String ans1 = ((MCQuestion) questionAdapter.getItem(position)).getAnswer1();
+                String ans2 = ((MCQuestion) questionAdapter.getItem(position)).getAnswer2();
+                String ans3 = ((MCQuestion) questionAdapter.getItem(position)).getAnswer3();
+                String ans4 = ((MCQuestion) questionAdapter.getItem(position)).getAnswer4();
+                int cor = ((MCQuestion) questionAdapter.getItem(position)).getCorrectAnswer();
 
-            QuestionFragment myFragment = new QuestionFragment();
-            Bundle infoToPass = new Bundle();
-            infoToPass.putString("Question", ques);
-            infoToPass.putString("Answer1", ans1);
-            infoToPass.putString("Answer2", ans2);
-            infoToPass.putString("Answer3", ans3);
-            infoToPass.putString("Answer4", ans4);
-            infoToPass.putInt("CorrectAnswer", cor);
-            infoToPass.putLong("IDInChat", id_inChat);
+                Long id_inChat = questionAdapter.getId(position);
+                long ID = id;
+                MCQuestionFragment myFragment = new MCQuestionFragment();
+                Bundle infoToPass = new Bundle();
+                infoToPass.putString("Question", ques);
+                infoToPass.putString("Answer1", ans1);
+                infoToPass.putString("Answer2", ans2);
+                infoToPass.putString("Answer3", ans3);
+                infoToPass.putString("Answer4", ans4);
+                infoToPass.putInt("CorrectAnswer", cor);
+                infoToPass.putLong("IDInChat", id_inChat);
+                infoToPass.putLong("ID", ID);
 
 
+                //if on tablet:
+                if (FrameExists) {
+                    Log.i(ACTIVITY_NAME, ID + " " + id_inChat);
+                    myFragment.setArguments(infoToPass);
+                    myFragment.setIsTablet(true);
+                    getFragmentManager().beginTransaction().replace(R.id.frame, myFragment).commit();
+                } else //this is a phone:
+                {
+                    myFragment.setIsTablet(false);
+                    Intent next = new Intent(QuizActivity.this, MCQuestionDetails.class);
+                    next.putExtra("QuestionItem", infoToPass);
+                    startActivityForResult(next, 1, infoToPass);
+                }
+            }else if(type ==2){
+                String ques = questionAdapter.getItem(position).getQuestion();
+                boolean bans = ((TFQuestion) questionAdapter.getItem(position)).isAnswer();
+                int ans;
+                if(bans){
+                    ans=1;
+                }else{
+                    ans=2;
+                }
 
-            //if on tablet:
-            if(FrameExists)
-            {
 
-                myFragment.setArguments( infoToPass );
-                myFragment.setIsTablet(true);
-                getFragmentManager().beginTransaction().replace(R.id.frame,myFragment).commit();
-            }
-            else //this is a phone:
-            {
-                myFragment.setIsTablet(false);
-                Intent next = new Intent(QuizActivity.this, QuestionDetails.class);
-                next.putExtra("QuestionItem", infoToPass);
-                startActivityForResult(next, 1, infoToPass);
+                Long id_inChat = questionAdapter.getId(position);
+                long ID = id;
+                TFQuestionFragment myFragment = new TFQuestionFragment();
+                Bundle infoToPass = new Bundle();
+                infoToPass.putString("Question", ques);
+                infoToPass.putInt("Answer", ans);
+                infoToPass.putLong("IDInChat", id_inChat);
+                infoToPass.putLong("ID", ID);
+
+
+                //if on tablet:
+                if (FrameExists) {
+                    Log.i(ACTIVITY_NAME, ID + " " + id_inChat);
+                    myFragment.setArguments(infoToPass);
+                    myFragment.setIsTablet(true);
+                    getFragmentManager().beginTransaction().replace(R.id.frame, myFragment).commit();
+                } else //this is a phone:
+                {
+                    myFragment.setIsTablet(false);
+                    Intent next = new Intent(QuizActivity.this, TFQuestionDetails.class);
+                    next.putExtra("QuestionItem", infoToPass);
+                    startActivityForResult(next, 1, infoToPass);
+                }
             }
 
         });
@@ -199,12 +314,13 @@ public class QuizActivity extends AppCompatActivity {
             if(extras.getInt("action")==1) {
                 long id = extras.getLong("DeleteID");
                 long id_inChat = extras.getLong("IDInChat");
+                Log.i(ACTIVITY_NAME,id+" "+id_inChat);
                 // String query = "DELETE FROM Messages WHERE "+ keyID + " = " +id + ";";
                 db.delete(ChatDatabaseHelper.TABLE_NAME, ChatDatabaseHelper.KEY_ID + " = ?", new String[]{Long.toString(id)});//.execSQL(query);
                 questions.remove((int) id_inChat);
                 cursor = db.rawQuery("SELECT * FROM " + ChatDatabaseHelper.TABLE_NAME + ";", null);
                 cursor.moveToFirst();
-                messageAdapter.notifyDataSetChanged();
+                questionAdapter.notifyDataSetChanged();
                 CharSequence text = "Question deleted";// "Switch is Off"
                 int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
                 Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
@@ -217,40 +333,87 @@ public class QuizActivity extends AppCompatActivity {
                 questions.remove((int) id_inChat);
                 cursor = db.rawQuery("SELECT * FROM " + ChatDatabaseHelper.TABLE_NAME + ";", null);
                 cursor.moveToFirst();
-                messageAdapter.notifyDataSetChanged();
-                String q = extras.getString("Question");
-                String a1= extras.getString("Answer1");
-                String a2= extras.getString("Answer2");
-                String a3= extras.getString("Answer3");
-                String a4= extras.getString("Answer4");
-                int c= extras.getInt("Correct");
-                Question question = new MCQuestion(q, a1, a2, a3, a4, c);
-                questions.add(question);
+                questionAdapter.notifyDataSetChanged();
+                if(extras.getInt("type")==1) {
+                    String q = extras.getString("Question");
+                    String a1 = extras.getString("Answer1");
+                    String a2 = extras.getString("Answer2");
+                    String a3 = extras.getString("Answer3");
+                    String a4 = extras.getString("Answer4");
+                    int c = extras.getInt("Correct");
+                    updateMC(q, a1, a2, a3, a4, c);
 
-                ContentValues cv = new ContentValues();
-                cv.put(ChatDatabaseHelper.KEY_QUESTION,q);
-                cv.put(ChatDatabaseHelper.KEY_ANSWER1,a1);
-                cv.put(ChatDatabaseHelper.KEY_ANSWER2,a2);
-                cv.put(ChatDatabaseHelper.KEY_ANSWER3,a3);
-                cv.put(ChatDatabaseHelper.KEY_ANSWER4,a4);
-                cv.put(ChatDatabaseHelper.KEY_CORRECT,c);
+                }else if(extras.getInt("type")==2) {
+                    String q = extras.getString("Question");
+                    int a1 = extras.getInt("Answer");
 
-                db.insert(ChatDatabaseHelper.TABLE_NAME, "Null replacement value", cv);
-                cursor =db.rawQuery("SELECT * FROM "+ChatDatabaseHelper.TABLE_NAME+";", null);
+                    updateTF(q, a1);
 
-                cursor.moveToFirst();
-
-                messageAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
-
-
-                CharSequence text = "Question updated";// "Switch is Off"
-                int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
-                Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
-                toast.show();
-            }else{
+                }
 
             }
         }
+    }
+
+    public void updateMC(String ques, String ans1, String ans2, String ans3, String ans4, int correct ){
+        String q = ques;
+        String a1= ans1;
+        String a2= ans2;
+        String a3= ans3;
+        String a4= ans4;
+        int c= correct;
+        Question question = new MCQuestion(q, a1, a2, a3, a4, c);
+        questions.add(question);
+
+        ContentValues cv = new ContentValues();
+        cv.put(ChatDatabaseHelper.KEY_QUESTION,q);
+        cv.put(ChatDatabaseHelper.KEY_ANSWER1,a1);
+        cv.put(ChatDatabaseHelper.KEY_ANSWER2,a2);
+        cv.put(ChatDatabaseHelper.KEY_ANSWER3,a3);
+        cv.put(ChatDatabaseHelper.KEY_ANSWER4,a4);
+        cv.put(ChatDatabaseHelper.KEY_CORRECT,c);
+
+        db.insert(ChatDatabaseHelper.TABLE_NAME, "Null replacement value", cv);
+        cursor =db.rawQuery("SELECT * FROM "+ChatDatabaseHelper.TABLE_NAME+";", null);
+
+        cursor.moveToFirst();
+
+        questionAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
+
+
+        CharSequence text = "Question updated";// "Switch is Off"
+        int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
+        Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
+        toast.show();
+
+
+    }
+
+    public void updateTF(String ques, int ans){
+        String q = ques;
+        int a1 = ans;
+
+        Question question = new TFQuestion(q, a1==1);
+        questions.add(question);
+
+        ContentValues cv = new ContentValues();
+        cv.put(ChatDatabaseHelper.KEY_QUESTION,q);
+        cv.put(ChatDatabaseHelper.KEY_CORRECT,a1);
+
+        db.insert(ChatDatabaseHelper.TABLE_NAME, "Null replacement value", cv);
+        cursor =db.rawQuery("SELECT * FROM "+ChatDatabaseHelper.TABLE_NAME+";", null);
+
+        cursor.moveToFirst();
+
+        questionAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
+
+
+        CharSequence text = "Question updated";// "Switch is Off"
+        int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
+        Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
+        toast.show();
+
+
     }
 
     public void deleteForTablet(long idInDatabase, long idInChat){
@@ -260,13 +423,15 @@ public class QuizActivity extends AppCompatActivity {
         questions.remove((int)id_inChat);
         cursor =db.rawQuery("SELECT * FROM "+ChatDatabaseHelper.TABLE_NAME+";", null);
         cursor.moveToFirst();
-        messageAdapter.notifyDataSetChanged();
+        questionAdapter.notifyDataSetChanged();
         CharSequence text = "Question deleted";// "Switch is Off"
         int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
         Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
         toast.show();
 
     }
+
+
 
     @Override
     protected void onDestroy(){
@@ -314,7 +479,7 @@ public class QuizActivity extends AppCompatActivity {
 
     public class ChatDatabaseHelper extends SQLiteOpenHelper {
         public static final String DATABASE_NAME = "Questions.db";
-        public static final int VERSION_NUM = 1;
+        public static final int VERSION_NUM = 2;
         public static final String TABLE_NAME = "Questions";
         public static final String KEY_ID = "ID";
         public static final String KEY_TYPE ="Type";
@@ -353,5 +518,8 @@ public class QuizActivity extends AppCompatActivity {
         }
 
 
+    }
+    public void setTF(int tf){
+        tfA = tf;
     }
 }

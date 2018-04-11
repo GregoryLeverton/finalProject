@@ -6,17 +6,17 @@ import android.os.Bundle;
 
 import com.example.greg.finalproject.R;
 
-public class QuestionDetails extends AppCompatActivity {
+public class TFQuestionDetails extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question_details);
+        setContentView(R.layout.activity_mc_question_details);
 
         Bundle bundle = getIntent().getBundleExtra("QuestionItem");
-        QuestionFragment myFragment = new QuestionFragment();
+        TFQuestionFragment myFragment = new TFQuestionFragment();
         myFragment.setArguments( bundle);
-       FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frame, myFragment).commit();
     }
 }

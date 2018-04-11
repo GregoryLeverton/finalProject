@@ -5,6 +5,7 @@
     <string name="harleenButton">Harleen Gakhar - Patient Intake Form</string>
     <string name="tranButton">Tran Le - Movie Information</string>
     <string name="newMC">New Multiple Choice Question</string>
+    <string name="newTF">New T/F Choice Question</string>
     <string name="jasonButton">Jason Meredith - OCTranspo Bus Route</string>
     <string name="patientButton">Im a patient intake form button</string>
     <string name="movieButton">Im a movie button</string>
@@ -16,5 +17,8 @@
     <string name="newQCancel">Cancel</string>
     <string name="updateQ">Update Question</string>
     <string name="back">Back</string>
+    <string name="TF">Enter 1 for True, 2 for False</string>
+    <string name="TA">True</string>
+    <string name="FA">False</string>
 
 </resources>
