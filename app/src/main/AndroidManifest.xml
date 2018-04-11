@@ -24,7 +24,7 @@
         <activity android:name="com.example.greg.octranspo.StopDetailsActivity" />
         <activity android:name="com.example.greg.quizgame.QuizActivity" />
         <activity
-            android:name="com.example.greg.quizgame.MessageDetails"
+            android:name="com.example.greg.quizgame.QuestionDetails"
             android:theme="@style/Theme.AppCompat" />
         <activity android:name="com.example.greg.patientintake.PatientActivity" />
         <activity android:name="com.example.greg.movieform.MovieActivity"></activity>

@@ -4,12 +4,17 @@
     <string name="gregButton">Gregory Leverton - Multiple Choice Quiz Creator</string>
     <string name="harleenButton">Harleen Gakhar - Patient Intake Form</string>
     <string name="tranButton">Tran Le - Movie Information</string>
-    <string name="quizButton">New Question</string>
+    <string name="newMC">New Multiple Choice Question</string>
     <string name="jasonButton">Jason Meredith - OCTranspo Bus Route</string>
     <string name="patientButton">Im a patient intake form button</string>
     <string name="movieButton">Im a movie button</string>
     <string name="message">MessageHere</string>
     <string name="ID">ID=</string>
-    <string name="delete">DELETE THIS MESSAGE</string>
+    <string name="deleteQ">Delete Question</string>
+    <string name="answer">Enter an answer</string>
+    <string name="correct">Which number is the correct answer?</string>
+    <string name="newQCancel">Cancel</string>
+    <string name="updateQ">Update Question</string>
+    <string name="back">Back</string>
 
 </resources>
