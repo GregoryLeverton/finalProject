@@ -1,5 +1,6 @@
 package com.example.greg.movieform;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -11,12 +12,13 @@ import android.widget.Toast;
 
 import com.example.greg.finalproject.R;
 
-public class MovieActivity extends AppCompatActivity {
+
+public class ListMovieActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie);
+        setContentView(R.layout.movie_list);
 
         Button button1 = (Button)findViewById(R.id.quiz_button);
 
