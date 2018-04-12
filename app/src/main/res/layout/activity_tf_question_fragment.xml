@@ -40,7 +40,7 @@
         android:id="@+id/updateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/TFGroup"
         android:text="@string/updateQ"
 
         />
@@ -49,7 +49,7 @@
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/TFGroup"
         android:layout_toRightOf="@+id/updateButton"
         android:text="@string/deleteQ"
 
@@ -59,7 +59,7 @@
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/TFGroup"
         android:layout_toRightOf="@+id/deleteButton"
         android:text="@string/back"
 

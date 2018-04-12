@@ -7,16 +7,16 @@ import android.util.Log;
 
 import com.example.greg.finalproject.R;
 
-public class TFQuestionDetails extends AppCompatActivity {
+public class NumQuestionDetails extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tf_question_details);
-        Log.i("IN TFQUESTION DETAILS", "TFQUESTION  DETAILS");
+        Log.i("IN NUMQUESTION DETAILS", "NUM QUESTION DETAILS");
+        setContentView(R.layout.activity_num_question_details);
 
         Bundle bundle = getIntent().getBundleExtra("QuestionItem");
-        TFQuestionFragment myFragment = new TFQuestionFragment();
+        NumQuestionFragment myFragment = new NumQuestionFragment();
         myFragment.setArguments( bundle);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frame, myFragment).commit();

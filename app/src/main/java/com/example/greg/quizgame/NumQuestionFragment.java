@@ -16,11 +16,14 @@ import android.widget.RadioGroup;
 
 import com.example.greg.finalproject.R;
 
-public class TFQuestionFragment extends Fragment {
+public class NumQuestionFragment extends Fragment {
 
-    protected static final String ACTIVITY_NAME ="TFQuestionFragment";
+    protected static final String ACTIVITY_NAME ="NumQuestionFragment";
     private boolean isTablet;
     private EditText QuestionView;
+    private EditText AnswerView;
+    private EditText PrecisionView;
+
 
     private Button update;
     private Button delete;
@@ -37,11 +40,11 @@ public class TFQuestionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
-        View gui = inflater.inflate(R.layout.activity_tf_question_fragment, container, false);
-        QuestionView =(EditText) gui.findViewById(R.id.questionView);
+        View gui = inflater.inflate(R.layout.activity_num_question_fragment, container, false);
+        QuestionView =(EditText) gui.findViewById(R.id.newQuestion);
+        AnswerView = (EditText) gui.findViewById(R.id.answer);
+        PrecisionView = (EditText) gui.findViewById(R.id.precision);
 
-        RadioButton trueButton = (RadioButton) gui.findViewById(R.id.trueButton);
-        RadioButton falseButton = (RadioButton) gui.findViewById(R.id.falseButton);
 
         update= (Button) gui.findViewById(R.id.updateButton);
         delete = (Button) gui.findViewById(R.id.deleteButton);
@@ -50,21 +53,17 @@ public class TFQuestionFragment extends Fragment {
         bundle = getArguments();
 
         String question = bundle.getString("Question");
-        int ans = bundle.getInt("Answer");
+        Double ans = bundle.getDouble("Answer");
+        int pres = bundle.getInt("Precision");
 
         final long id = bundle.getLong("ID");
         final long id_inChat= bundle.getLong("IDInChat");
-        Log.i(ACTIVITY_NAME,id+" "+id_inChat+" "+isTablet+" "+ans);
+        Log.i(ACTIVITY_NAME,"id: "+id+" idInChat: "+id_inChat+" tablet?: "+isTablet+" Question: "+question+" Answer: "+ans+ " Pres: "+ pres);
 
         QuestionView.setText(question);
-        if(ans ==1){
-            falseButton.setChecked(false);
-            trueButton.setChecked(true);
+        AnswerView.setText(new Double(ans).toString());
+        PrecisionView.setText(new Integer(pres).toString());
 
-        }else{
-            falseButton.setChecked(true);
-            trueButton.setChecked(false);
-        }
 
 
 
@@ -72,7 +71,7 @@ public class TFQuestionFragment extends Fragment {
                     if(isTablet){
                         QuizActivity qa = (QuizActivity)getActivity();
                         qa.deleteForTablet(id, id_inChat, true);
-                        getFragmentManager().beginTransaction().remove(TFQuestionFragment.this).commit();
+                        getFragmentManager().beginTransaction().remove(NumQuestionFragment.this).commit();
                     }else{
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra("action", 1);
@@ -87,24 +86,21 @@ public class TFQuestionFragment extends Fragment {
 
         update.setOnClickListener((view)-> {
             String newQ = QuestionView.getText().toString();
-            int a1;
-            if(trueButton.isChecked()){
-                a1=1;
-            }else{
-                a1=2;
-            }
+            double newAnswer = Double.parseDouble(AnswerView.getText().toString());
+            int newPres = Integer.parseInt(PrecisionView.getText().toString());
 
             if(isTablet){
                 QuizActivity qa = (QuizActivity)getActivity();
                 qa.deleteForTablet(id, id_inChat, false);
-                qa.updateTF(newQ, a1);
-                getFragmentManager().beginTransaction().remove(TFQuestionFragment.this).commit();
+                qa.updateNum(newQ, newAnswer, newPres);
+                getFragmentManager().beginTransaction().remove(NumQuestionFragment.this).commit();
             }else{
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("type", 2);
+                resultIntent.putExtra("type", 3);
                 resultIntent.putExtra("action", 2);
                 resultIntent.putExtra("Question", newQ);
-                resultIntent.putExtra("Answer", a1);
+                resultIntent.putExtra("Answer", newAnswer);
+                resultIntent.putExtra("Precision", newPres);
                 resultIntent.putExtra("UpdateID", id);
                 resultIntent.putExtra("IDInChat", id_inChat);
                 getActivity().setResult(Activity.RESULT_OK, resultIntent);
@@ -117,7 +113,7 @@ public class TFQuestionFragment extends Fragment {
             if(isTablet){
                 QuizActivity qa = (QuizActivity)getActivity();
 
-                getFragmentManager().beginTransaction().remove(TFQuestionFragment.this).commit();
+                getFragmentManager().beginTransaction().remove(NumQuestionFragment.this).commit();
             }else{
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("action", 3);

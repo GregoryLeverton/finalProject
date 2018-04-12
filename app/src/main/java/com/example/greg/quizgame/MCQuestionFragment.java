@@ -75,7 +75,7 @@ public class MCQuestionFragment extends Fragment {
         delete.setOnClickListener((view)->{
             if(isTablet){
                 QuizActivity qa = (QuizActivity)getActivity();
-                qa.deleteForTablet(id, id_inChat);
+                qa.deleteForTablet(id, id_inChat, true);
                 getFragmentManager().beginTransaction().remove(MCQuestionFragment.this).commit();
             }else{
                 Intent resultIntent = new Intent();
@@ -99,7 +99,7 @@ public class MCQuestionFragment extends Fragment {
 
             if(isTablet){
                 QuizActivity qa = (QuizActivity)getActivity();
-                qa.deleteForTablet(id, id_inChat);
+                qa.deleteForTablet(id, id_inChat, false);
                 qa.updateMC(newQ, newA1, newA2, newA3, newA4, newCor);
                 getFragmentManager().beginTransaction().remove(MCQuestionFragment.this).commit();
             }else{

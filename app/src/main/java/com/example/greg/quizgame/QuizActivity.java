@@ -38,7 +38,7 @@ public class QuizActivity extends AppCompatActivity {
     String keyID = ChatDatabaseHelper.KEY_ID;
     String keyMsg = ChatDatabaseHelper.KEY_QUESTION;
     ArrayList<Question> questions = new ArrayList<>();
-    int tfA = 0;
+    int tfA = 1;
     QuestionAdapter questionAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ public class QuizActivity extends AppCompatActivity {
         //EditText textInput = findViewById(R.id.chatText);
         Button newMC = findViewById(R.id.new_MC);
         Button newTF = findViewById(R.id.new_TF);
+        Button newNum = findViewById(R.id.new_Num);
         questionAdapter =new QuestionAdapter( this );
         chat.setAdapter (questionAdapter);
         ChatDatabaseHelper myOpener = new ChatDatabaseHelper(this);
@@ -61,6 +62,7 @@ public class QuizActivity extends AppCompatActivity {
 
         while(!cursor.isAfterLast() ) {
             Question question;
+            Log.i(ACTIVITY_NAME, "KEY TYPE IS" + cursor.getInt(cursor.getColumnIndex(ChatDatabaseHelper.KEY_TYPE)) );
             if(cursor.getInt(cursor.getColumnIndex(ChatDatabaseHelper.KEY_TYPE))==1) {
 
                 String q = cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_QUESTION));
@@ -82,7 +84,8 @@ public class QuizActivity extends AppCompatActivity {
                 question = new NumericQuestion(q, a, p);
 
             }else{
-                question = null;
+                String q = cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_QUESTION));
+                question = new MCQuestion("error"+q, "error", "error", "error", "error", 2);
             }
             questions.add(question);
             Log.i(ACTIVITY_NAME, "SQL MESSAGE:" + cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_QUESTION)));
@@ -158,12 +161,28 @@ public class QuizActivity extends AppCompatActivity {
 
         newTF.setOnClickListener(e ->{
 
-            //while(a1!=1 || a1!=2){
+            setTF(1);
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
 
                     final View view=this.getLayoutInflater().inflate(R.layout.tf_dialog,null);
 
                     builder1.setView(view);
+            RadioButton trueButton = (RadioButton) view.findViewById(R.id.trueButton);
+            RadioButton falseButton = (RadioButton) view.findViewById(R.id.falseButton);
+
+            trueButton.setOnClickListener((test)->{
+                        setTF(1);
+                        Log.i(ACTIVITY_NAME, tfA+" should be 1 FAAAAAAARRRRT");
+                    }
+            );
+
+            falseButton.setOnClickListener((test)->{
+                        setTF(2);
+                        Log.i(ACTIVITY_NAME, tfA+" should be 2 FAAAAAAARRRRT");
+                    }
+
+
+            );
 
                     builder1.setPositiveButton(R.string.newTF, new DialogInterface.OnClickListener() {
 
@@ -172,20 +191,7 @@ public class QuizActivity extends AppCompatActivity {
                             EditText ques = (EditText)view.findViewById(R.id.newTFQuestion);
                             RadioGroup answer = (RadioGroup) view.findViewById(R.id.TFGroup);
 
-                            RadioButton trueButton = (RadioButton) view.findViewById(R.id.trueButton);
-                            RadioButton falseButton = (RadioButton) view.findViewById(R.id.falseButton);
 
-                            trueButton.setOnClickListener((view)->{
-                                        setTF(1);
-                                    }
-                           );
-
-                            falseButton.setOnClickListener((view)->{
-                                setTF(2);
-                                    }
-
-
-                            );
 
                             String q = ques.getText().toString();
 
@@ -228,6 +234,63 @@ public class QuizActivity extends AppCompatActivity {
                     dialog1.show();
                 }//}
         );
+
+        newNum.setOnClickListener(e ->{
+
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+
+                    final View view=this.getLayoutInflater().inflate(R.layout.num_dialog,null);
+
+                    builder1.setView(view);
+
+                    builder1.setPositiveButton(R.string.newNum, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            EditText ques = (EditText)view.findViewById(R.id.newQuestion);
+                            EditText answer = (EditText)view.findViewById(R.id.answer);
+                            EditText precision = (EditText)view.findViewById(R.id.precision);
+
+
+                            String q = ques.getText().toString();
+                            double a= Double.parseDouble(answer.getText().toString());
+
+                            int p= Integer.parseInt(precision.getText().toString());
+                            NumericQuestion question = new NumericQuestion(q, a, p);
+                            questions.add(question);
+
+                            ContentValues cv = new ContentValues();
+                            cv.put(ChatDatabaseHelper.KEY_TYPE, 3);
+                            cv.put(ChatDatabaseHelper.KEY_QUESTION,q);
+                            cv.put(ChatDatabaseHelper.KEY_NUMANSWER,a);
+                            cv.put(ChatDatabaseHelper.KEY_PRECISION,p);
+
+                            db.insert(ChatDatabaseHelper.TABLE_NAME, "Null replacement value", cv);
+                            cursor =db.rawQuery("SELECT * FROM "+ChatDatabaseHelper.TABLE_NAME+";", null);
+
+                            cursor.moveToFirst();
+
+                            questionAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
+
+                        }
+                    });
+
+                    builder1.setNegativeButton(R.string.newQCancel, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int id) {
+
+
+
+                        }
+
+                    });
+
+                    AlertDialog dialog1 = builder1.create();
+
+                    dialog1.show();
+                }
+        );
+
 
         chat.setOnItemClickListener((adapterView, view, position, id) ->{
             int type = questionAdapter.getItem(position).getType();
@@ -296,10 +359,43 @@ public class QuizActivity extends AppCompatActivity {
                     getFragmentManager().beginTransaction().replace(R.id.frame, myFragment).commit();
                 } else //this is a phone:
                 {
+                    Log.i("HUH", "SERIOUSLY HOW");
                     myFragment.setIsTablet(false);
                     Intent next = new Intent(QuizActivity.this, TFQuestionDetails.class);
                     next.putExtra("QuestionItem", infoToPass);
                     startActivityForResult(next, 1, infoToPass);
+                }
+            }else if(type ==3) {
+                String ques = questionAdapter.getItem(position).getQuestion();
+                double ans = ((NumericQuestion) questionAdapter.getItem(position)).getAnswer();
+                int pres = ((NumericQuestion) questionAdapter.getItem(position)).getPrecision();
+
+
+                Long id_inChat = questionAdapter.getId(position);
+                long ID = id;
+                NumQuestionFragment myFragment = new NumQuestionFragment();
+                Bundle infoToPass = new Bundle();
+                infoToPass.putString("Question", ques);
+                infoToPass.putDouble("Answer", ans);
+                infoToPass.putInt("Precision", pres);
+                infoToPass.putLong("IDInChat", id_inChat);
+                infoToPass.putLong("ID", ID);
+
+
+                //if on tablet:
+                if (FrameExists) {
+                    Log.i(ACTIVITY_NAME, ID + " " + id_inChat);
+                    myFragment.setArguments(infoToPass);
+                    myFragment.setIsTablet(true);
+                    getFragmentManager().beginTransaction().replace(R.id.frame, myFragment).commit();
+                } else //this is a phone:
+                {
+                    Log.i("WHAT", "SERIOUSLY WHAT");
+                    myFragment.setIsTablet(false);
+                    Intent next = new Intent(QuizActivity.this, NumQuestionDetails.class);
+                    next.putExtra("QuestionItem", infoToPass);
+                    startActivityForResult(next, 1, infoToPass);
+
                 }
             }
 
@@ -349,6 +445,13 @@ public class QuizActivity extends AppCompatActivity {
 
                     updateTF(q, a1);
 
+                }else if(extras.getInt("type")==3) {
+                    String q = extras.getString("Question");
+                    double a1 = extras.getDouble("Answer");
+                    int pres = extras.getInt("Precision");
+
+                    updateNum(q, a1, pres);
+
                 }
 
             }
@@ -366,6 +469,7 @@ public class QuizActivity extends AppCompatActivity {
         questions.add(question);
 
         ContentValues cv = new ContentValues();
+        cv.put(ChatDatabaseHelper.KEY_TYPE, 1);
         cv.put(ChatDatabaseHelper.KEY_QUESTION,q);
         cv.put(ChatDatabaseHelper.KEY_ANSWER1,a1);
         cv.put(ChatDatabaseHelper.KEY_ANSWER2,a2);
@@ -397,6 +501,7 @@ public class QuizActivity extends AppCompatActivity {
         questions.add(question);
 
         ContentValues cv = new ContentValues();
+        cv.put(ChatDatabaseHelper.KEY_TYPE, 2);
         cv.put(ChatDatabaseHelper.KEY_QUESTION,q);
         cv.put(ChatDatabaseHelper.KEY_CORRECT,a1);
 
@@ -416,7 +521,40 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
-    public void deleteForTablet(long idInDatabase, long idInChat){
+    public void updateNum(String ques, double ans, int pres){
+        String q = ques;
+        double a1 = ans;
+        int p = pres;
+
+        NumericQuestion question = new NumericQuestion(q, a1, p);
+        questions.add(question);
+
+        ContentValues cv = new ContentValues();
+        cv.put(ChatDatabaseHelper.KEY_TYPE, 3);
+        cv.put(ChatDatabaseHelper.KEY_QUESTION,q);
+        cv.put(ChatDatabaseHelper.KEY_NUMANSWER,a1);
+        cv.put(ChatDatabaseHelper.KEY_PRECISION,p);
+
+
+        db.insert(ChatDatabaseHelper.TABLE_NAME, "Null replacement value", cv);
+        cursor =db.rawQuery("SELECT * FROM "+ChatDatabaseHelper.TABLE_NAME+";", null);
+
+        cursor.moveToFirst();
+
+        questionAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
+
+
+        CharSequence text = "Question updated";// "Switch is Off"
+        int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
+        Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
+        toast.show();
+
+
+    }
+
+
+
+    public void deleteForTablet(long idInDatabase, long idInChat, boolean deleteOnly){
         long id = idInDatabase;
         long id_inChat = idInChat;
         db.delete(ChatDatabaseHelper.TABLE_NAME, ChatDatabaseHelper.KEY_ID + " = ?", new String[] {Long.toString(id)}) ;
@@ -424,10 +562,12 @@ public class QuizActivity extends AppCompatActivity {
         cursor =db.rawQuery("SELECT * FROM "+ChatDatabaseHelper.TABLE_NAME+";", null);
         cursor.moveToFirst();
         questionAdapter.notifyDataSetChanged();
-        CharSequence text = "Question deleted";// "Switch is Off"
-        int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
-        Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
-        toast.show();
+        if(deleteOnly) {
+            CharSequence text = "Question deleted";// "Switch is Off"
+            int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
+            Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
+            toast.show();
+        }
 
     }
 
@@ -479,7 +619,7 @@ public class QuizActivity extends AppCompatActivity {
 
     public class ChatDatabaseHelper extends SQLiteOpenHelper {
         public static final String DATABASE_NAME = "Questions.db";
-        public static final int VERSION_NUM = 2;
+        public static final int VERSION_NUM = 3;
         public static final String TABLE_NAME = "Questions";
         public static final String KEY_ID = "ID";
         public static final String KEY_TYPE ="Type";

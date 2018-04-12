@@ -6,6 +6,7 @@
     <string name="tranButton">Tran Le - Movie Information</string>
     <string name="newMC">New Multiple Choice Question</string>
     <string name="newTF">New T/F Choice Question</string>
+    <string name="newNum">New Numeric Answer Question</string>
     <string name="jasonButton">Jason Meredith - OCTranspo Bus Route</string>
     <string name="patientButton">Im a patient intake form button</string>
     <string name="movieButton">Im a movie button</string>
@@ -20,5 +21,7 @@
     <string name="TF">Enter 1 for True, 2 for False</string>
     <string name="TA">True</string>
     <string name="FA">False</string>
+    <string name="pres">Enter the precision</string>
+
 
 </resources>

@@ -5,56 +5,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.greg.quizgame.MCQuestionFragment">
+    tools:context="com.example.greg.quizgame.NumQuestionFragment">
 
 
     <EditText
-        android:id="@+id/questionView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"/>
-    <EditText
-        android:id="@+id/a1View"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/newQuestion"
         android:inputType="text"
-        android:layout_below="@id/questionView"
-        android:text="@string/answer" />
-    <EditText
-        android:id="@+id/a2View"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:layout_below="@id/a1View"
-        android:text="@string/answer" />
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/newNum" />
     <EditText
-        android:id="@+id/a3View"
+        android:id="@+id/answer"
+        android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:layout_below="@id/a2View"
-        android:text="@string/answer" />
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_below="@+id/newQuestion"
+        android:hint="@string/answer" />
     <EditText
-        android:id="@+id/a4View"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:layout_below="@id/a3View"
-        android:text="@string/answer" />
-    <EditText
-        android:id="@+id/correctView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/precision"
         android:inputType="number"
-        android:layout_below="@id/a4View"
-        android:text="@string/correct" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_below="@+id/answer"
+        android:hint="@string/pres" />
 
 
     <Button
         android:id="@+id/updateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/correctView"
+        android:layout_below="@+id/precision"
         android:text="@string/updateQ"
 
         />
@@ -63,8 +55,8 @@
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/correctView"
         android:layout_toRightOf="@+id/updateButton"
+        android:layout_below="@+id/precision"
         android:text="@string/deleteQ"
 
         />
@@ -73,8 +65,8 @@
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/correctView"
         android:layout_toRightOf="@+id/deleteButton"
+        android:layout_below="@+id/precision"
         android:text="@string/back"
 
         />

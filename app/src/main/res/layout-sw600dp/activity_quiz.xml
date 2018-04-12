@@ -39,8 +39,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/new_Num"
         android:text="@string/newTF" />
+
+    <Button
+        android:id="@+id/new_Num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/newNum" />
 
 
 </RelativeLayout>
