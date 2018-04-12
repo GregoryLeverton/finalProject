@@ -22,6 +22,10 @@
     <string name="TA">True</string>
     <string name="FA">False</string>
     <string name="pres">Enter the precision</string>
+    <string name="loadWeb">Load Questions from the Web</string>
+    <string name="getStats">Get Questions Statistics</string>
+    <string name="title_activity_question_stats">QuestionStatsActivity</string>
+    <string name="totalQues">The total number of questions is:</string>
 
 
 </resources>

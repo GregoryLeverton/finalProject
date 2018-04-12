@@ -9,7 +9,11 @@ public class NumericQuestion extends Question {
     private double answer;
     private int precision;
 
-    public NumericQuestion(String Question, double answer, int precision){
+    public NumericQuestion() {
+        type = 3;
+    }
+
+    public NumericQuestion(String Question, double answer, int precision) {
         setQuestion(Question);
         setAnswer(answer);
         setPrecision(precision);
@@ -31,8 +35,9 @@ public class NumericQuestion extends Question {
     public void setPrecision(int precision) {
         this.precision = precision;
     }
-    public boolean isCorrect(double attempt){
-        return(Math.abs(getAnswer()-attempt)<Math.pow(10, -getPrecision()));
+
+    public boolean isCorrect(double attempt) {
+        return (Math.abs(getAnswer() - attempt) < Math.pow(10, -getPrecision()));
 
     }
 }

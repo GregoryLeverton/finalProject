@@ -11,7 +11,11 @@ public class MCQuestion extends Question {
     private String answer4;
     private int correctAnswer;
 
-    public MCQuestion(String question, String answer1, String answer2, String answer3, String answer4, int correct){
+    public MCQuestion() {
+        type = 1;
+    }
+
+    public MCQuestion(String question, String answer1, String answer2, String answer3, String answer4, int correct) {
         setQuestion(question);
         setAnswer1(answer1);
         setAnswer2(answer2);

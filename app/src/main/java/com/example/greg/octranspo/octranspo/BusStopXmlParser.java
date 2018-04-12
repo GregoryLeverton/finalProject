@@ -1,9 +1,7 @@
 package com.example.greg.octranspo.octranspo;
 
-import android.content.Context;
 import android.util.Log;
 import android.util.Xml;
-import android.widget.ArrayAdapter;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -54,7 +52,7 @@ public class BusStopXmlParser {
             Log.i("ParserName", name);
             int eventType = parser.getEventType();
 
-            if(name.equals("Error")) {
+            if (name.equals("Error")) {
                 parser.require(XmlPullParser.START_TAG, null, "Error");
 
                 parser.next();
@@ -68,7 +66,7 @@ public class BusStopXmlParser {
                 stopName = parser.getText();
             }
 
-            if(name.equals("StopDescription")) {
+            if (name.equals("StopDescription")) {
                 parser.require(XmlPullParser.START_TAG, null, "StopDescription");
 
                 parser.next();
@@ -79,19 +77,19 @@ public class BusStopXmlParser {
                 parser.next();
             }
 
-            if(name.equals("Routes")) {
+            if (name.equals("Routes")) {
                 parser.require(XmlPullParser.START_TAG, null, "Routes");
                 parser.nextTag();
 
                 //Log.i("After routes", "name: " + parser.getName());
             }
 
-            if(parser.getName().equals("Route")) {
+            if (parser.getName().equals("Route")) {
                 parser.require(XmlPullParser.START_TAG, null, "Route");
                 parser.next();
             }
 
-            if(parser.getName().equals("RouteNo")) {
+            if (parser.getName().equals("RouteNo")) {
                 String routeHeading = " - ";
                 String routeNumber;
 
@@ -99,15 +97,15 @@ public class BusStopXmlParser {
                 //Log.i("RouteNo", "" + parser.getText());
                 routeNumber = parser.getText();
                 String nextName = "";
-                while(!nextName.equals("RouteHeading")) {
+                while (!nextName.equals("RouteHeading")) {
                     parser.next();
-                    if(parser.getName() != null)
-                    nextName  = parser.getName();
+                    if (parser.getName() != null)
+                        nextName = parser.getName();
                 }
-                if(nextName.equals("RouteHeading")) {
+                if (nextName.equals("RouteHeading")) {
                     parser.require(XmlPullParser.START_TAG, null, "RouteHeading");
                     parser.next();
-                    if(parser.getEventType() == XmlPullParser.TEXT) {
+                    if (parser.getEventType() == XmlPullParser.TEXT) {
                         routeHeading = parser.getText();
                     }
                 }
@@ -115,7 +113,6 @@ public class BusStopXmlParser {
                 routes.add(newRoute);
                 Log.i("Route at Stop", newRoute.getRouteNumber() + ": " + newRoute.getRouteHeading());
             }
-
 
 
             eventType = parser.next();

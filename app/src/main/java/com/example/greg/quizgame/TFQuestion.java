@@ -8,7 +8,11 @@ public class TFQuestion extends Question {
 
     private boolean answer;
 
-    public TFQuestion(String question, boolean answer){
+    public TFQuestion() {
+        type = 2;
+    }
+
+    public TFQuestion(String question, boolean answer) {
         setQuestion(question);
         type = 2;
         setAnswer(answer);

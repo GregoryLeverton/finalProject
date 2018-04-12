@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import com.example.greg.finalproject.R;
 
 public class MCQuestionFragment extends Fragment {
 
-    protected static final String ACTIVITY_NAME ="MCQuestionFragment";
+    protected static final String ACTIVITY_NAME = "MCQuestionFragment";
     private boolean isTablet;
     private EditText QuestionView;
     private EditText A1View;
@@ -41,14 +40,18 @@ public class MCQuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View gui = inflater.inflate(R.layout.activity_mc_question_fragment, container, false);
-        QuestionView =(EditText) gui.findViewById(R.id.questionView);
-        A1View=(EditText) gui.findViewById(R.id.a1View);;
-        A2View=(EditText) gui.findViewById(R.id.a2View);;
-        A3View=(EditText) gui.findViewById(R.id.a3View);;
-        A4View=(EditText) gui.findViewById(R.id.a4View);;
-        CorrectView=(EditText) gui.findViewById(R.id.correctView);
+        QuestionView = (EditText) gui.findViewById(R.id.questionView);
+        A1View = (EditText) gui.findViewById(R.id.a1View);
+        ;
+        A2View = (EditText) gui.findViewById(R.id.a2View);
+        ;
+        A3View = (EditText) gui.findViewById(R.id.a3View);
+        ;
+        A4View = (EditText) gui.findViewById(R.id.a4View);
+        ;
+        CorrectView = (EditText) gui.findViewById(R.id.correctView);
 
-        update= (Button) gui.findViewById(R.id.updateButton);
+        update = (Button) gui.findViewById(R.id.updateButton);
         delete = (Button) gui.findViewById(R.id.deleteButton);
         back = (Button) gui.findViewById(R.id.backButton);
 
@@ -61,8 +64,8 @@ public class MCQuestionFragment extends Fragment {
         String A4 = bundle.getString("Answer4");
         String cor = new Integer(bundle.getInt("CorrectAnswer")).toString();
         final long id = bundle.getLong("ID");
-        final long id_inChat= bundle.getLong("IDInChat");
-        Log.i(ACTIVITY_NAME,id+" "+id_inChat+" "+isTablet);
+        final long id_inChat = bundle.getLong("IDInChat");
+
 
         QuestionView.setText(question);
         A1View.setText(A1);
@@ -72,24 +75,24 @@ public class MCQuestionFragment extends Fragment {
         CorrectView.setText(cor);
 
 
-        delete.setOnClickListener((view)->{
-            if(isTablet){
-                QuizActivity qa = (QuizActivity)getActivity();
-                qa.deleteForTablet(id, id_inChat, true);
-                getFragmentManager().beginTransaction().remove(MCQuestionFragment.this).commit();
-            }else{
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("action", 1);
-                resultIntent.putExtra("DeleteID", id);
-                resultIntent.putExtra("IDInChat", id_inChat);
-                getActivity().setResult(Activity.RESULT_OK, resultIntent);
-                getActivity().finish();
-            }
+        delete.setOnClickListener((view) -> {
+                    if (isTablet) {
+                        QuizActivity qa = (QuizActivity) getActivity();
+                        qa.deleteForTablet(id, id_inChat, true);
+                        getFragmentManager().beginTransaction().remove(MCQuestionFragment.this).commit();
+                    } else {
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("action", 1);
+                        resultIntent.putExtra("DeleteID", id);
+                        resultIntent.putExtra("IDInChat", id_inChat);
+                        getActivity().setResult(Activity.RESULT_OK, resultIntent);
+                        getActivity().finish();
+                    }
                 }
 
-                );
+        );
 
-        update.setOnClickListener((view)-> {
+        update.setOnClickListener((view) -> {
             String newQ = QuestionView.getText().toString();
             String newA1 = A1View.getText().toString();
             String newA2 = A2View.getText().toString();
@@ -97,12 +100,12 @@ public class MCQuestionFragment extends Fragment {
             String newA4 = A4View.getText().toString();
             int newCor = Integer.parseInt(CorrectView.getText().toString());
 
-            if(isTablet){
-                QuizActivity qa = (QuizActivity)getActivity();
+            if (isTablet) {
+                QuizActivity qa = (QuizActivity) getActivity();
                 qa.deleteForTablet(id, id_inChat, false);
                 qa.updateMC(newQ, newA1, newA2, newA3, newA4, newCor);
                 getFragmentManager().beginTransaction().remove(MCQuestionFragment.this).commit();
-            }else{
+            } else {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("type", 1);
                 resultIntent.putExtra("action", 2);
@@ -120,12 +123,12 @@ public class MCQuestionFragment extends Fragment {
 
         });
 
-        back.setOnClickListener((view)->{
-            if(isTablet){
-                QuizActivity qa = (QuizActivity)getActivity();
+        back.setOnClickListener((view) -> {
+            if (isTablet) {
+                QuizActivity qa = (QuizActivity) getActivity();
 
                 getFragmentManager().beginTransaction().remove(MCQuestionFragment.this).commit();
-            }else{
+            } else {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("action", 3);
 
@@ -139,7 +142,7 @@ public class MCQuestionFragment extends Fragment {
         return gui;
     }
 
-    public void setIsTablet(boolean isTablet){
-        this.isTablet=isTablet;
+    public void setIsTablet(boolean isTablet) {
+        this.isTablet = isTablet;
     }
 }

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.greg.finalproject">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,14 +25,20 @@
         <activity android:name="com.example.greg.octranspo.SearchStopsActivity" />
         <activity android:name="com.example.greg.octranspo.StopDetailsActivity" />
         <activity android:name="com.example.greg.quizgame.QuizActivity" />
-        <activity android:name="com.example.greg.quizgame.MCQuestionDetails"
+        <activity
+            android:name="com.example.greg.quizgame.MCQuestionDetails"
             android:theme="@style/Theme.AppCompat" />
-        <activity android:name="com.example.greg.quizgame.TFQuestionDetails"
+        <activity
+            android:name="com.example.greg.quizgame.TFQuestionDetails"
             android:theme="@style/Theme.AppCompat" />
-        <activity android:name="com.example.greg.quizgame.NumQuestionDetails"
+        <activity
+            android:name="com.example.greg.quizgame.NumQuestionDetails"
             android:theme="@style/Theme.AppCompat" />
         <activity android:name="com.example.greg.patientintake.PatientActivity" />
-        <activity android:name="com.example.greg.movieform.MovieActivity"></activity>
+        <activity android:name="com.example.greg.movieform.MovieActivity" />
+        <activity
+            android:name="com.example.greg.quizgame.QuestionStatsActivity"
+            android:label="@string/title_activity_question_stats"></activity>
     </application>
 
 </manifest>

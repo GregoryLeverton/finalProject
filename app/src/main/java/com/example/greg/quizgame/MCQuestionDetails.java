@@ -1,8 +1,8 @@
 package com.example.greg.quizgame;
 
 import android.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.greg.finalproject.R;
 
@@ -15,8 +15,8 @@ public class MCQuestionDetails extends AppCompatActivity {
 
         Bundle bundle = getIntent().getBundleExtra("QuestionItem");
         MCQuestionFragment myFragment = new MCQuestionFragment();
-        myFragment.setArguments( bundle);
-       FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        myFragment.setArguments(bundle);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frame, myFragment).commit();
     }
 }

@@ -54,7 +54,6 @@ public class SearchStopsActivity extends AppCompatActivity {
         searchStopTxt.setText(sp.getString("LastSearch", ""));
 
 
-
         searchStopBtn = (Button) findViewById(R.id.searchStopBtn);
         previouslySearchedStopsList = (ListView) findViewById(R.id.previouslySearchedStopsList);
 
@@ -91,24 +90,24 @@ public class SearchStopsActivity extends AppCompatActivity {
 
     private void updateSearchesArray() {
         Cursor c = db.query(true, PreviousSearchDatabaseHelper.TABLE_NAME,
-                new String[] {
+                new String[]{
                         PreviousSearchDatabaseHelper.KEY_ID,
                         PreviousSearchDatabaseHelper.KEY_NAME
                 },
                 null, null, null, null, null, null);
 
-        if(c.moveToFirst()) {
+        if (c.moveToFirst()) {
             do {
                 short id = c.getShort(c.getColumnIndex(PreviousSearchDatabaseHelper.KEY_ID));
                 String name = c.getString(c.getColumnIndex(PreviousSearchDatabaseHelper.KEY_NAME));
 
                 StopSearchResult search = new StopSearchResult(id, name);
 
-                if(!previousSearches.contains(search)) {
+                if (!previousSearches.contains(search)) {
                     previousSearches.add(new StopSearchResult(id, name));
                 }
 
-            } while(c.moveToNext());
+            } while (c.moveToNext());
         }
 
         c.close();
@@ -134,7 +133,7 @@ public class SearchStopsActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int responseCode, Intent data) {
-        if(responseCode == BusStopSearch.ROUTE_NOT_FOUND) {
+        if (responseCode == BusStopSearch.ROUTE_NOT_FOUND) {
             Toast.makeText(this, "Route Not Found!", Toast.LENGTH_LONG).show();
         }
     }
@@ -144,7 +143,7 @@ public class SearchStopsActivity extends AppCompatActivity {
 
         db.delete(PreviousSearchDatabaseHelper.TABLE_NAME,
                 PreviousSearchDatabaseHelper.KEY_ID + "=" +
-        String.valueOf(stopId), null);
+                        String.valueOf(stopId), null);
 
         Snackbar.make(findViewById(R.id.CoordinatorLayout), "Bus Stop Deleted: " + stopName,
                 Snackbar.LENGTH_SHORT)
@@ -163,19 +162,16 @@ public class SearchStopsActivity extends AppCompatActivity {
         builder.setMessage("Delete saved bus stop?")
                 .setTitle("Please Confirm")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                deletePreviousSearchFromDatabase(id, name);
-                                previousSearches.remove(position);
-                                previousSearchesAdapter.notifyDataSetChanged();
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        deletePreviousSearchFromDatabase(id, name);
+                        previousSearches.remove(position);
+                        previousSearchesAdapter.notifyDataSetChanged();
 
-                            }
-                        })
+                    }
+                })
                 .setNegativeButton("No", null)
                 .show();
-
-
-
 
 
     }

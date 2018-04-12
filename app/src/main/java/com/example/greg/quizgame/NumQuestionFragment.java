@@ -5,20 +5,17 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.example.greg.finalproject.R;
 
 public class NumQuestionFragment extends Fragment {
 
-    protected static final String ACTIVITY_NAME ="NumQuestionFragment";
+    protected static final String ACTIVITY_NAME = "NumQuestionFragment";
     private boolean isTablet;
     private EditText QuestionView;
     private EditText AnswerView;
@@ -41,12 +38,12 @@ public class NumQuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View gui = inflater.inflate(R.layout.activity_num_question_fragment, container, false);
-        QuestionView =(EditText) gui.findViewById(R.id.newQuestion);
+        QuestionView = (EditText) gui.findViewById(R.id.newQuestion);
         AnswerView = (EditText) gui.findViewById(R.id.answer);
         PrecisionView = (EditText) gui.findViewById(R.id.precision);
 
 
-        update= (Button) gui.findViewById(R.id.updateButton);
+        update = (Button) gui.findViewById(R.id.updateButton);
         delete = (Button) gui.findViewById(R.id.deleteButton);
         back = (Button) gui.findViewById(R.id.backButton);
 
@@ -57,22 +54,20 @@ public class NumQuestionFragment extends Fragment {
         int pres = bundle.getInt("Precision");
 
         final long id = bundle.getLong("ID");
-        final long id_inChat= bundle.getLong("IDInChat");
-        Log.i(ACTIVITY_NAME,"id: "+id+" idInChat: "+id_inChat+" tablet?: "+isTablet+" Question: "+question+" Answer: "+ans+ " Pres: "+ pres);
+        final long id_inChat = bundle.getLong("IDInChat");
+
 
         QuestionView.setText(question);
         AnswerView.setText(new Double(ans).toString());
         PrecisionView.setText(new Integer(pres).toString());
 
 
-
-
-        delete.setOnClickListener((view)->{
-                    if(isTablet){
-                        QuizActivity qa = (QuizActivity)getActivity();
+        delete.setOnClickListener((view) -> {
+                    if (isTablet) {
+                        QuizActivity qa = (QuizActivity) getActivity();
                         qa.deleteForTablet(id, id_inChat, true);
                         getFragmentManager().beginTransaction().remove(NumQuestionFragment.this).commit();
-                    }else{
+                    } else {
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra("action", 1);
                         resultIntent.putExtra("DeleteID", id);
@@ -84,17 +79,17 @@ public class NumQuestionFragment extends Fragment {
 
         );
 
-        update.setOnClickListener((view)-> {
+        update.setOnClickListener((view) -> {
             String newQ = QuestionView.getText().toString();
             double newAnswer = Double.parseDouble(AnswerView.getText().toString());
             int newPres = Integer.parseInt(PrecisionView.getText().toString());
 
-            if(isTablet){
-                QuizActivity qa = (QuizActivity)getActivity();
+            if (isTablet) {
+                QuizActivity qa = (QuizActivity) getActivity();
                 qa.deleteForTablet(id, id_inChat, false);
                 qa.updateNum(newQ, newAnswer, newPres);
                 getFragmentManager().beginTransaction().remove(NumQuestionFragment.this).commit();
-            }else{
+            } else {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("type", 3);
                 resultIntent.putExtra("action", 2);
@@ -109,12 +104,12 @@ public class NumQuestionFragment extends Fragment {
 
         });
 
-        back.setOnClickListener((view)->{
-            if(isTablet){
-                QuizActivity qa = (QuizActivity)getActivity();
+        back.setOnClickListener((view) -> {
+            if (isTablet) {
+                QuizActivity qa = (QuizActivity) getActivity();
 
                 getFragmentManager().beginTransaction().remove(NumQuestionFragment.this).commit();
-            }else{
+            } else {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("action", 3);
 
@@ -128,7 +123,7 @@ public class NumQuestionFragment extends Fragment {
         return gui;
     }
 
-    public void setIsTablet(boolean isTablet){
-        this.isTablet=isTablet;
+    public void setIsTablet(boolean isTablet) {
+        this.isTablet = isTablet;
     }
 }

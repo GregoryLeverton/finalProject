@@ -17,7 +17,7 @@ public abstract class Question {
         this.question = question;
     }
 
-    public int getType(){
+    public int getType() {
         return type;
     }
 

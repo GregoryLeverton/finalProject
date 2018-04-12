@@ -42,5 +42,4 @@
         app:layout_constraintTop_toBottomOf="@+id/startAppBtn" />
 
 
-
 </android.support.constraint.ConstraintLayout>
