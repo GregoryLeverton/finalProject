@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -44,11 +45,8 @@ public class QuizActivity extends AppCompatActivity {
     protected Cursor cursor;
 
     ProgressBar progressBar;
-    String tableName = QuizDatabaseHelper.TABLE_NAME;
-    String keyID = QuizDatabaseHelper.KEY_ID;
-    String keyMsg = QuizDatabaseHelper.KEY_QUESTION;
     ArrayList<Question> questions = new ArrayList<>();
-    int tfA = 1;
+    int tfA = 1; //this variable is related to how true or false answers are changed
     QuestionAdapter questionAdapter;
 
     @Override
@@ -58,13 +56,14 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
         FrameExists = (findViewById(R.id.frame) != null);
 
-        progressBar = (ProgressBar) findViewById(R.id.progress);
+        progressBar = findViewById(R.id.progress);
         ListView questionsList = findViewById(R.id.list);
         Button newMC = findViewById(R.id.new_MC);
         Button newTF = findViewById(R.id.new_TF);
         Button newNum = findViewById(R.id.new_Num);
         Button load = findViewById(R.id.loadxml);
         Button stats = findViewById(R.id.stats);
+        Button about = findViewById(R.id.about);
         questionAdapter = new QuestionAdapter(this);
         questionsList.setAdapter(questionAdapter);
         QuizDatabaseHelper myOpener = new QuizDatabaseHelper(this);
@@ -107,6 +106,19 @@ public class QuizActivity extends AppCompatActivity {
             query.execute("http://torunski.ca/CST2335/QuizInstance.xml");
         });
 
+        about.setOnClickListener(e->{
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            final View view = this.getLayoutInflater().inflate(R.layout.about_dialog, null);
+            builder1.setView(view);
+
+             builder1.setNegativeButton(R.string.newQCancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                }
+            });
+            AlertDialog dialog1 = builder1.create();
+            dialog1.show();
+        });
+
         stats.setOnClickListener(e -> {
             int totMC = 0;
             int totTF = 0;
@@ -139,12 +151,12 @@ public class QuizActivity extends AppCompatActivity {
                     builder1.setView(view);
                     builder1.setPositiveButton(R.string.newMC, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            EditText ques = (EditText) view.findViewById(R.id.newQuestion);
-                            EditText answer1 = (EditText) view.findViewById(R.id.answer1);
-                            EditText answer2 = (EditText) view.findViewById(R.id.answer2);
-                            EditText answer3 = (EditText) view.findViewById(R.id.answer3);
-                            EditText answer4 = (EditText) view.findViewById(R.id.answer4);
-                            EditText correct = (EditText) view.findViewById(R.id.correct);
+                            EditText ques = view.findViewById(R.id.newQuestion);
+                            EditText answer1 = view.findViewById(R.id.answer1);
+                            EditText answer2 = view.findViewById(R.id.answer2);
+                            EditText answer3 = view.findViewById(R.id.answer3);
+                            EditText answer4 = view.findViewById(R.id.answer4);
+                            EditText correct = view.findViewById(R.id.correct);
                             String q = ques.getText().toString();
                             String a1 = answer1.getText().toString();
                             String a2 = answer2.getText().toString();
@@ -183,8 +195,8 @@ public class QuizActivity extends AppCompatActivity {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
                     final View view = this.getLayoutInflater().inflate(R.layout.tf_dialog, null);
                     builder1.setView(view);
-                    RadioButton trueButton = (RadioButton) view.findViewById(R.id.trueButton);
-                    RadioButton falseButton = (RadioButton) view.findViewById(R.id.falseButton);
+                    RadioButton trueButton =view.findViewById(R.id.trueButton);
+                    RadioButton falseButton =  view.findViewById(R.id.falseButton);
                     trueButton.setOnClickListener((test) -> {
                                 setTF(1);
                             }
@@ -195,8 +207,7 @@ public class QuizActivity extends AppCompatActivity {
                     );
                     builder1.setPositiveButton(R.string.newTF, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            EditText ques = (EditText) view.findViewById(R.id.newTFQuestion);
-                            RadioGroup answer = (RadioGroup) view.findViewById(R.id.TFGroup);
+                            EditText ques =view.findViewById(R.id.newTFQuestion);
                             String q = ques.getText().toString();
                             TFQuestion question = new TFQuestion(q, tfA == 1);
                             questions.add(question);
@@ -224,9 +235,9 @@ public class QuizActivity extends AppCompatActivity {
                     builder1.setView(view);
                     builder1.setPositiveButton(R.string.newNum, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            EditText ques = (EditText) view.findViewById(R.id.newQuestion);
-                            EditText answer = (EditText) view.findViewById(R.id.answer);
-                            EditText precision = (EditText) view.findViewById(R.id.precision);
+                            EditText ques =  view.findViewById(R.id.newQuestion);
+                            EditText answer = view.findViewById(R.id.answer);
+                            EditText precision = view.findViewById(R.id.precision);
                             String q = ques.getText().toString();
                             double a = Double.parseDouble(answer.getText().toString());
                             int p = Integer.parseInt(precision.getText().toString());
@@ -262,7 +273,7 @@ public class QuizActivity extends AppCompatActivity {
                 String ans4 = ((MCQuestion) questionAdapter.getItem(position)).getAnswer4();
                 int cor = ((MCQuestion) questionAdapter.getItem(position)).getCorrectAnswer();
                 Long id_inList = questionAdapter.getId(position);
-                long ID = id;
+
                 MCQuestionFragment myFragment = new MCQuestionFragment();
                 Bundle infoToPass = new Bundle();
                 infoToPass.putString("Question", ques);
@@ -272,7 +283,7 @@ public class QuizActivity extends AppCompatActivity {
                 infoToPass.putString("Answer4", ans4);
                 infoToPass.putInt("CorrectAnswer", cor);
                 infoToPass.putLong("IDInChat", id_inList);
-                infoToPass.putLong("ID", ID);
+                infoToPass.putLong("ID", id);
 
                 //if on tablet:
                 if (FrameExists) {
@@ -296,13 +307,12 @@ public class QuizActivity extends AppCompatActivity {
                     ans = 2;
                 }
                 Long id_inList = questionAdapter.getId(position);
-                long ID = id;
                 TFQuestionFragment myFragment = new TFQuestionFragment();
                 Bundle infoToPass = new Bundle();
                 infoToPass.putString("Question", ques);
                 infoToPass.putInt("Answer", ans);
                 infoToPass.putLong("IDInChat", id_inList);
-                infoToPass.putLong("ID", ID);
+                infoToPass.putLong("ID", id);
                 //if on tablet:
                 if (FrameExists) {
                     myFragment.setArguments(infoToPass);
@@ -320,14 +330,13 @@ public class QuizActivity extends AppCompatActivity {
                 double ans = ((NumericQuestion) questionAdapter.getItem(position)).getAnswer();
                 int pres = ((NumericQuestion) questionAdapter.getItem(position)).getPrecision();
                 Long id_inList = questionAdapter.getId(position);
-                long ID = id;
                 NumQuestionFragment myFragment = new NumQuestionFragment();
                 Bundle infoToPass = new Bundle();
                 infoToPass.putString("Question", ques);
                 infoToPass.putDouble("Answer", ans);
                 infoToPass.putInt("Precision", pres);
                 infoToPass.putLong("IDInChat", id_inList);
-                infoToPass.putLong("ID", ID);
+                infoToPass.putLong("ID", id);
                 //if on tablet:
                 if (FrameExists) {
                     myFragment.setArguments(infoToPass);
@@ -457,11 +466,11 @@ public class QuizActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
         toast.show();
     }
-    public void deleteForTablet(long idInDatabase, long idInChat, boolean deleteOnly) {
+    public void deleteForTablet(long idInDatabase, long idInList, boolean deleteOnly) {
         long id = idInDatabase;
-        long id_inChat = idInChat;
+        long id_inList = idInList;
         db.delete(QuizDatabaseHelper.TABLE_NAME, QuizDatabaseHelper.KEY_ID + " = ?", new String[]{Long.toString(id)});
-        questions.remove((int) id_inChat);
+        questions.remove((int) id_inList);
         cursor = db.rawQuery("SELECT * FROM " + QuizDatabaseHelper.TABLE_NAME + ";", null);
         cursor.moveToFirst();
         questionAdapter.notifyDataSetChanged();
@@ -504,8 +513,8 @@ public class QuizActivity extends AppCompatActivity {
             LayoutInflater inflater = QuizActivity.this.getLayoutInflater();
             View result = null;
             result = inflater.inflate(R.layout.question, null);
-            TextView message = result.findViewById(R.id.question_text);
-            message.setText(getItem(position).getQuestion()); // get the string at position
+            TextView questionText = result.findViewById(R.id.question_text);
+            questionText.setText(getItem(position).getQuestion()); // get the string at position
             return result;
         }
 
@@ -603,6 +612,7 @@ public class QuizActivity extends AppCompatActivity {
                                     cursor.moveToFirst();
                                     i = 0;
                                     MCquestion = new MCQuestion();
+                                    publishProgress(50);
                                 }
                             } else if (xpp.getName().equals("NumericQuestion")) {
                                 ques = xpp.getAttributeValue(null, "question");
@@ -618,6 +628,7 @@ public class QuizActivity extends AppCompatActivity {
                                 db.insert(QuizDatabaseHelper.TABLE_NAME, "Null replacement value", cv);
                                 cursor = db.rawQuery("SELECT * FROM " + QuizDatabaseHelper.TABLE_NAME + ";", null);
                                 cursor.moveToFirst();
+                                publishProgress(75);
                             } else if (xpp.getName().equals("TrueFalseQuestion")) {
                                 ques = xpp.getAttributeValue(null, "question");
                                 correct = xpp.getAttributeValue(null, "answer");
@@ -636,6 +647,7 @@ public class QuizActivity extends AppCompatActivity {
                                 db.insert(QuizDatabaseHelper.TABLE_NAME, "Null replacement value", cv);
                                 cursor = db.rawQuery("SELECT * FROM " + QuizDatabaseHelper.TABLE_NAME + ";", null);
                                 cursor.moveToFirst();
+                                publishProgress(100);
                             }
                         }
                     }

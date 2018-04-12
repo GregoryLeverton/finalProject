@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="5dp"
     tools:context="com.example.greg.quizgame.QuizActivity">
 
 
@@ -17,7 +18,7 @@
         android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/new_MC">
+        android:layout_toEndOf="@+id/new_MC">
 
 
     </FrameLayout>
@@ -25,7 +26,7 @@
 
     <Button
         android:id="@+id/new_MC"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_above="@id/new_TF"
         android:layout_alignParentStart="true"
@@ -33,7 +34,7 @@
 
     <Button
         android:id="@+id/new_TF"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_above="@id/new_Num"
         android:layout_alignParentStart="true"
@@ -41,7 +42,7 @@
 
     <Button
         android:id="@+id/new_Num"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_above="@id/loadxml"
         android:layout_alignParentStart="true"
@@ -49,7 +50,7 @@
 
     <Button
         android:id="@+id/loadxml"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_above="@id/stats"
         android:layout_alignParentStart="true"
@@ -57,11 +58,20 @@
 
     <Button
         android:id="@+id/stats"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_above="@id/progress"
         android:layout_alignParentStart="true"
         android:text="@string/getStats" />
+
+    <Button
+        android:id="@+id/about"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/progress"
+        android:layout_toEndOf="@+id/stats"
+        android:text="@string/about" />
+
 
     <ProgressBar
         android:id="@+id/progress"

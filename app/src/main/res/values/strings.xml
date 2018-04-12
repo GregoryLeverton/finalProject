@@ -26,6 +26,12 @@
     <string name="getStats">Get Questions Statistics</string>
     <string name="title_activity_question_stats">QuestionStatsActivity</string>
     <string name="totalQues">The total number of questions is:</string>
+    <string name="about">About</string>
+    <string name="version">Version 4.0</string>
+    <string name="create">To create a new question, select on of the new question buttons</string>
+    <string name="editdelete">Select a question to view, edit, or delete it</string>
+    <string name="statinstructions">Select the \'Get Question Statistics\' button to view statistics about the created questions </string>
+
 
 
 </resources>
