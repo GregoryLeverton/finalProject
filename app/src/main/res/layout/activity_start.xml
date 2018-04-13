@@ -9,32 +9,31 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/header"
-         />
+        android:text="@string/header" />
+
     <Button
-    android:id="@+id/greg"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/gregButton"/>
+        android:id="@+id/greg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/gregButton" />
 
     <Button
         android:id="@+id/harleen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/harleenButton"/>
+        android:text="@string/harleenButton" />
 
     <Button
         android:id="@+id/tran"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tranButton"/>
-
+        android:text="@string/tranButton" />
 
 
     <Button
         android:id="@+id/jason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/jasonButton"/>
+        android:text="@string/jasonButton" />
 
 </LinearLayout>

@@ -26,8 +26,21 @@
         <activity android:name="com.example.greg.octranspo.SearchStopsActivity" />
         <activity android:name="com.example.greg.octranspo.StopDetailsActivity" />
         <activity android:name="com.example.greg.quizgame.QuizActivity" />
+        <activity
+            android:name="com.example.greg.quizgame.MCQuestionDetails"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name="com.example.greg.quizgame.TFQuestionDetails"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name="com.example.greg.quizgame.NumQuestionDetails"
+            android:theme="@style/Theme.AppCompat" />
         <activity android:name="com.example.greg.patientintake.PatientActivity" />
         <activity android:name="com.example.greg.movieform.MovieActivity" />
+        <activity
+            android:name="com.example.greg.quizgame.QuestionStatsActivity"
+            android:label="@string/title_activity_question_stats"></activity>
+
         <activity android:name="com.example.greg.octranspo.InfoActivity"></activity>
     </application>
 

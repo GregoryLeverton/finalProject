@@ -4,10 +4,39 @@
     <string name="gregButton">Gregory Leverton - Multiple Choice Quiz Creator</string>
     <string name="harleenButton">Harleen Gakhar - Patient Intake Form</string>
     <string name="tranButton">Tran Le - Movie Information</string>
-    <string name="quizButton">Im a quiz button</string>
+    <string name="newMC">New Multiple Choice Question</string>
+    <string name="newTF">New T/F Choice Question</string>
+    <string name="newNum">New Numeric Answer Question</string>
     <string name="jasonButton">Jason Meredith - OCTranspo Bus Route</string>
     <string name="patientButton">Im a patient intake form button</string>
     <string name="movieButton">Im a movie button</string>
+    <string name="message">MessageHere</string>
+    <string name="ID">ID=</string>
+    <string name="deleteQ">Delete Question</string>
+    <string name="answer">Enter an answer</string>
+    <string name="correct">Which number is the correct answer?</string>
+    <string name="newQCancel">Cancel</string>
+    <string name="updateQ">Update Question</string>
+    <string name="back">Back</string>
+    <string name="TF">Enter 1 for True, 2 for False</string>
+    <string name="TA">True</string>
+    <string name="FA">False</string>
+    <string name="pres">Enter the precision</string>
+    <string name="loadWeb">Load Questions from the Web</string>
+    <string name="getStats">Get Questions Statistics</string>
+    <string name="title_activity_question_stats">QuestionStatsActivity</string>
+    <string name="totalQues">The total number of questions is:</string>
+    <string name ="thereAre">There are</string>
+    <string name ="mcq">multiple choice questions</string>
+    <string name="tfq">true or false questions</string>
+    <string name="numq">numeric questions</string>
+    <string name="about">About</string>
+    <string name="version">Version 4.0</string>
+    <string name="create">To create a new question, select on of the new question buttons</string>
+    <string name="editdelete">Select a question to view, edit, or delete it</string>
+    <string name="statinstructions">Select the \'Get Question Statistics\' button to view statistics about the created questions </string>
+
+
 
 
 

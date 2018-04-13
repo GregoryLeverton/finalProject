@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">ProjetFinal</string>
+    <string name="header">CST2335 Projet final</string>
+    <string name="gregButton">Gregory Leverton - Créateur de quiz à choix multiple</string>
+    <string name="harleenButton">Harleen Gakhar - Patient Intake Form</string>
+    <string name="tranButton">Tran Le - Movie Information</string>
+    <string name="newMC">Nouvelle question à choix multiple</string>
+    <string name="newTF">Nouvelle question de choix vrai ou faux</string>
+    <string name="newNum">New Numeric Répondre à la question</string>
+    <string name="jasonButton">Jason Meredith - OCTranspo Bus Route</string>
+    <string name="patientButton">Im a patient intake form button</string>
+    <string name="movieButton">Im a movie button</string>
+    <string name="message">MessageHere</string>
+    <string name="ID">ID=</string>
+    <string name="deleteQ">Supprimer la question</string>
+    <string name="answer">Entrez une réponse</string>
+    <string name="correct">Quel numéro est la bonne réponse?</string>
+    <string name="newQCancel">Annuler</string>
+    <string name="updateQ">Mise à jour</string>
+    <string name="back">Arrière</string>
+    <string name="TF">Entrez 1 pour Vrai, 2 pour Faux</string>
+    <string name="TA">Vrai</string>
+    <string name="FA">Faux</string>
+    <string name="pres">Entrez la précision</string>
+    <string name="loadWeb">Charger des questions sur le Web</string>
+    <string name="getStats">Obtenir des statistiques</string>
+    <string name="title_activity_question_stats">QuestionStatsActivité</string>
+    <string name="totalQues">Le nombre total de questions est:</string>
+    <string name ="thereAre">Il y a</string>
+    <string name ="mcq">Questions à choix multiple</string>
+    <string name="tfq">questions vraies ou fausses</string>
+    <string name="numq">questions numériques</string>
+    <string name="about">Sur</string>
+    <string name="version">Version 4.0</string>
+    <string name="create">Pour créer une nouvelle question, sélectionnez l\'un des nouveaux boutons de question</string>
+    <string name="editdelete">Sélectionnez une question à afficher, modifier ou supprimer</string>
+    <string name="statinstructions">Sélectionnez le bouton \'Obtenir les statistiques de la question\' pour afficher les statistiques sur les questions créées </string>
+
+
+
+</resources>

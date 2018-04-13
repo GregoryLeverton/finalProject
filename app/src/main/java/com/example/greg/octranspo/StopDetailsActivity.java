@@ -54,8 +54,6 @@ public class StopDetailsActivity extends Activity {
         }.execute(stopId);
 
 
-
-
         //* Get stopId from intent
         // Run octranspo api request
         // Parse results
@@ -65,7 +63,7 @@ public class StopDetailsActivity extends Activity {
 
     private void processData(int resultCode, ArrayList<Route> routes, String stopName) {
 
-        switch(resultCode) {
+        switch (resultCode) {
             case BusStopSearch.SUCCESS:
                 this.routes = routes;
                 saveBusStopToDatabase(stopName);

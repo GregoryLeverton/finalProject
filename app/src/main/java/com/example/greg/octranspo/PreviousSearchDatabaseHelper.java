@@ -24,7 +24,7 @@ public class PreviousSearchDatabaseHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-        KEY_NAME + " TEXT);");
+                KEY_NAME + " TEXT);");
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer) {
