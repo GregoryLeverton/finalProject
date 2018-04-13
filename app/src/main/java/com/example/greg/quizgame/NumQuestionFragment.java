@@ -1,4 +1,7 @@
 package com.example.greg.quizgame;
+/**
+ * Created by Greg Leverton on 2018-03-30.
+ */
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -38,14 +41,13 @@ public class NumQuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View gui = inflater.inflate(R.layout.activity_num_question_fragment, container, false);
-        QuestionView = (EditText) gui.findViewById(R.id.newQuestion);
-        AnswerView = (EditText) gui.findViewById(R.id.answer);
-        PrecisionView = (EditText) gui.findViewById(R.id.precision);
+        QuestionView = gui.findViewById(R.id.newQuestion);
+        AnswerView = gui.findViewById(R.id.answer);
+        PrecisionView = gui.findViewById(R.id.precision);
 
-
-        update = (Button) gui.findViewById(R.id.updateButton);
-        delete = (Button) gui.findViewById(R.id.deleteButton);
-        back = (Button) gui.findViewById(R.id.backButton);
+        update = gui.findViewById(R.id.updateButton);
+        delete =  gui.findViewById(R.id.deleteButton);
+        back =  gui.findViewById(R.id.backButton);
 
         bundle = getArguments();
 
@@ -56,11 +58,9 @@ public class NumQuestionFragment extends Fragment {
         final long id = bundle.getLong("ID");
         final long id_inChat = bundle.getLong("IDInChat");
 
-
         QuestionView.setText(question);
         AnswerView.setText(new Double(ans).toString());
         PrecisionView.setText(new Integer(pres).toString());
-
 
         delete.setOnClickListener((view) -> {
                     if (isTablet) {
@@ -76,7 +76,6 @@ public class NumQuestionFragment extends Fragment {
                         getActivity().finish();
                     }
                 }
-
         );
 
         update.setOnClickListener((view) -> {
@@ -116,8 +115,6 @@ public class NumQuestionFragment extends Fragment {
                 getActivity().setResult(Activity.RESULT_OK, resultIntent);
                 getActivity().finish();
             }
-
-
         });
 
         return gui;

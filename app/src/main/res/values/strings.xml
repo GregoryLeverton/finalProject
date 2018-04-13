@@ -26,6 +26,10 @@
     <string name="getStats">Get Questions Statistics</string>
     <string name="title_activity_question_stats">QuestionStatsActivity</string>
     <string name="totalQues">The total number of questions is:</string>
+    <string name ="thereAre">There are</string>
+    <string name ="mcq">multiple choice questions</string>
+    <string name="tfq">true or false questions</string>
+    <string name="numq">numeric questions</string>
     <string name="about">About</string>
     <string name="version">Version 4.0</string>
     <string name="create">To create a new question, select on of the new question buttons</string>

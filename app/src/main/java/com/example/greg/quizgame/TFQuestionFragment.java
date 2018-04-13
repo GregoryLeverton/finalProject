@@ -1,4 +1,7 @@
 package com.example.greg.quizgame;
+/**
+ * Created by Greg Leverton on 2018-03-30.
+ */
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -36,14 +39,14 @@ public class TFQuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View gui = inflater.inflate(R.layout.activity_tf_question_fragment, container, false);
-        QuestionView = (EditText) gui.findViewById(R.id.questionView);
+        QuestionView =  gui.findViewById(R.id.questionView);
 
-        RadioButton trueButton = (RadioButton) gui.findViewById(R.id.trueButton);
-        RadioButton falseButton = (RadioButton) gui.findViewById(R.id.falseButton);
+        RadioButton trueButton = gui.findViewById(R.id.trueButton);
+        RadioButton falseButton = gui.findViewById(R.id.falseButton);
 
-        update = (Button) gui.findViewById(R.id.updateButton);
-        delete = (Button) gui.findViewById(R.id.deleteButton);
-        back = (Button) gui.findViewById(R.id.backButton);
+        update = gui.findViewById(R.id.updateButton);
+        delete =  gui.findViewById(R.id.deleteButton);
+        back = gui.findViewById(R.id.backButton);
 
         bundle = getArguments();
 

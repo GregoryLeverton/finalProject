@@ -1,4 +1,7 @@
 package com.example.greg.quizgame;
+/**
+ * Created by Greg Leverton on 2018-03-20.
+ */
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,7 +12,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -27,12 +29,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.greg.finalproject.R;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
-
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -71,7 +70,7 @@ public class QuizActivity extends AppCompatActivity {
 
         cursor = db.rawQuery("SELECT * FROM " + QuizDatabaseHelper.TABLE_NAME + ";", null);
         cursor.moveToFirst();
-
+        //load the questions from the database into the ListView
         while (!cursor.isAfterLast()) {
             Question question;
 
@@ -101,11 +100,13 @@ public class QuizActivity extends AppCompatActivity {
             cursor.moveToNext();
             }
 
+        //load questions from webpage
         load.setOnClickListener(e -> {
             QuizQuery query = new QuizQuery();
             query.execute("http://torunski.ca/CST2335/QuizInstance.xml");
         });
 
+        //bring up about dialog
         about.setOnClickListener(e->{
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
             final View view = this.getLayoutInflater().inflate(R.layout.about_dialog, null);
@@ -119,6 +120,7 @@ public class QuizActivity extends AppCompatActivity {
             dialog1.show();
         });
 
+        //generate stats on questions, display in a new activity
         stats.setOnClickListener(e -> {
             int totMC = 0;
             int totTF = 0;
@@ -145,12 +147,14 @@ public class QuizActivity extends AppCompatActivity {
             startActivity(statsIntent, bundle);
         });
 
+        //create a new MC question
         newMC.setOnClickListener(e -> {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
                     final View view = this.getLayoutInflater().inflate(R.layout.mc_dialog, null);
                     builder1.setView(view);
                     builder1.setPositiveButton(R.string.newMC, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
+                            //load the data from the fields
                             EditText ques = view.findViewById(R.id.newQuestion);
                             EditText answer1 = view.findViewById(R.id.answer1);
                             EditText answer2 = view.findViewById(R.id.answer2);
@@ -163,9 +167,10 @@ public class QuizActivity extends AppCompatActivity {
                             String a3 = answer3.getText().toString();
                             String a4 = answer4.getText().toString();
                             int c = Integer.parseInt(correct.getText().toString());
+                            //save to ArrayList
                             MCQuestion question = new MCQuestion(q, a1, a2, a3, a4, c);
                             questions.add(question);
-
+                            //save to database
                             ContentValues cv = new ContentValues();
                             cv.put(QuizDatabaseHelper.KEY_TYPE, 1);
                             cv.put(QuizDatabaseHelper.KEY_QUESTION, q);
@@ -190,27 +195,31 @@ public class QuizActivity extends AppCompatActivity {
                     dialog1.show();
                 }
         );
+        //create new TF question
         newTF.setOnClickListener(e -> {
-                    setTF(1);
+                    setTF(1); //make sure the default button is true
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
                     final View view = this.getLayoutInflater().inflate(R.layout.tf_dialog, null);
                     builder1.setView(view);
                     RadioButton trueButton =view.findViewById(R.id.trueButton);
                     RadioButton falseButton =  view.findViewById(R.id.falseButton);
                     trueButton.setOnClickListener((test) -> {
-                                setTF(1);
+                                setTF(1); //register that they selected true
                             }
                     );
                     falseButton.setOnClickListener((test) -> {
-                                setTF(2);
+                                setTF(2); //register that they selected false
                             }
                     );
                     builder1.setPositiveButton(R.string.newTF, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
+                            //get data from fields
                             EditText ques =view.findViewById(R.id.newTFQuestion);
                             String q = ques.getText().toString();
+                            //save to arrayList
                             TFQuestion question = new TFQuestion(q, tfA == 1);
                             questions.add(question);
+                            //save to database
                             ContentValues cv = new ContentValues();
                             cv.put(QuizDatabaseHelper.KEY_TYPE, 2);
                             cv.put(QuizDatabaseHelper.KEY_QUESTION, q);
@@ -229,20 +238,24 @@ public class QuizActivity extends AppCompatActivity {
                     dialog1.show();
                 }
         );
+        //create a new numeric question
         newNum.setOnClickListener(e -> {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
                     final View view = this.getLayoutInflater().inflate(R.layout.num_dialog, null);
                     builder1.setView(view);
                     builder1.setPositiveButton(R.string.newNum, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
+                            //get data from fields
                             EditText ques =  view.findViewById(R.id.newQuestion);
                             EditText answer = view.findViewById(R.id.answer);
                             EditText precision = view.findViewById(R.id.precision);
                             String q = ques.getText().toString();
                             double a = Double.parseDouble(answer.getText().toString());
                             int p = Integer.parseInt(precision.getText().toString());
+                            //save to arrayList
                             NumericQuestion question = new NumericQuestion(q, a, p);
                             questions.add(question);
+                            //save to database
                             ContentValues cv = new ContentValues();
                             cv.put(QuizDatabaseHelper.KEY_TYPE, 3);
                             cv.put(QuizDatabaseHelper.KEY_QUESTION, q);
@@ -262,10 +275,11 @@ public class QuizActivity extends AppCompatActivity {
                     dialog1.show();
                 }
         );
+        //set actions for when a question is clocked on
         questionsList.setOnItemClickListener((adapterView, view, position, id) -> {
             Log.i("WHAT THE CRAP", "position: "+position+" id: "+id);
             int type = questionAdapter.getItem(position).getType();
-            if (type == 1) {
+            if (type == 1) { //MC question
                 String ques = questionAdapter.getItem(position).getQuestion();
                 String ans1 = ((MCQuestion) questionAdapter.getItem(position)).getAnswer1();
                 String ans2 = ((MCQuestion) questionAdapter.getItem(position)).getAnswer2();
@@ -297,7 +311,7 @@ public class QuizActivity extends AppCompatActivity {
                     next.putExtra("QuestionItem", infoToPass);
                     startActivityForResult(next, 1, infoToPass);
                 }
-            } else if (type == 2) {
+            } else if (type == 2) { //TF question
                 String ques = questionAdapter.getItem(position).getQuestion();
                 boolean bans = ((TFQuestion) questionAdapter.getItem(position)).isAnswer();
                 int ans;
@@ -325,7 +339,7 @@ public class QuizActivity extends AppCompatActivity {
                     next.putExtra("QuestionItem", infoToPass);
                     startActivityForResult(next, 1, infoToPass);
                 }
-            } else if (type == 3) {
+            } else if (type == 3) { //Numeric question
                 String ques = questionAdapter.getItem(position).getQuestion();
                 double ans = ((NumericQuestion) questionAdapter.getItem(position)).getAnswer();
                 int pres = ((NumericQuestion) questionAdapter.getItem(position)).getPrecision();
@@ -353,11 +367,12 @@ public class QuizActivity extends AppCompatActivity {
         });
     }
 
+    //return from new activity, when on phone
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             Bundle extras = data.getExtras();
-            if (extras.getInt("action") == 1) {
+            if (extras.getInt("action") == 1) { //the user selected delete
                 long id = extras.getLong("DeleteID");
                 long id_inList = extras.getLong("IDInChat");
 
@@ -370,16 +385,17 @@ public class QuizActivity extends AppCompatActivity {
                 int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
                 Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
                 toast.show();
-            } else if (extras.getInt("action") == 2) {
+            } else if (extras.getInt("action") == 2) { //the user selected update
                 long id = extras.getLong("UpdateID");
                 long id_inList = extras.getLong("IDInChat");
-
+                //delete question
                 db.delete(QuizDatabaseHelper.TABLE_NAME, QuizDatabaseHelper.KEY_ID + " = ?", new String[]{Long.toString(id)});//.execSQL(query);
                 questions.remove((int) id_inList);
                 cursor = db.rawQuery("SELECT * FROM " + QuizDatabaseHelper.TABLE_NAME + ";", null);
                 cursor.moveToFirst();
                 questionAdapter.notifyDataSetChanged();
-                if (extras.getInt("type") == 1) {
+                //create new question with updated information
+                if (extras.getInt("type") == 1) { //MC question
                     String q = extras.getString("Question");
                     String a1 = extras.getString("Answer1");
                     String a2 = extras.getString("Answer2");
@@ -387,11 +403,11 @@ public class QuizActivity extends AppCompatActivity {
                     String a4 = extras.getString("Answer4");
                     int c = extras.getInt("Correct");
                     updateMC(q, a1, a2, a3, a4, c);
-                } else if (extras.getInt("type") == 2) {
+                } else if (extras.getInt("type") == 2) { //TF question
                     String q = extras.getString("Question");
                     int a1 = extras.getInt("Answer");
                     updateTF(q, a1);
-                } else if (extras.getInt("type") == 3) {
+                } else if (extras.getInt("type") == 3) { //numeric question
                     String q = extras.getString("Question");
                     double a1 = extras.getDouble("Answer");
                     int pres = extras.getInt("Precision");
@@ -400,6 +416,7 @@ public class QuizActivity extends AppCompatActivity {
             }
         }
     }
+    //update a MC question
     public void updateMC(String ques, String ans1, String ans2, String ans3, String ans4, int correct) {
         String q = ques;
         String a1 = ans1;
@@ -427,6 +444,7 @@ public class QuizActivity extends AppCompatActivity {
         toast.show();
     }
 
+    //update a TF question
     public void updateTF(String ques, int ans) {
         String q = ques;
         int a1 = ans;
@@ -446,6 +464,7 @@ public class QuizActivity extends AppCompatActivity {
         toast.show();
     }
 
+    //update numeric question
     public void updateNum(String ques, double ans, int pres) {
         String q = ques;
         double a1 = ans;
@@ -466,6 +485,8 @@ public class QuizActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
         toast.show();
     }
+
+    //delete a question from the tablet
     public void deleteForTablet(long idInDatabase, long idInList, boolean deleteOnly) {
         long id = idInDatabase;
         long id_inList = idInList;
@@ -486,11 +507,12 @@ public class QuizActivity extends AppCompatActivity {
         super.onDestroy();
         db.close();
     }
-
+    //Method to manage the TF variable
     public void setTF(int tf) {
         tfA = tf;
     }
 
+    //ArrayAdapter to manage the ArrayList of questions
     private class QuestionAdapter extends ArrayAdapter<Question> {
         QuestionAdapter(Context ctx) {
             super(ctx, 0);
@@ -523,20 +545,21 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
+    //Database Helper, defines and manages the database of questions
     public class QuizDatabaseHelper extends SQLiteOpenHelper {
         public static final String DATABASE_NAME = "Questions.db";
         public static final int VERSION_NUM = 3;
         public static final String TABLE_NAME = "Questions";
-        public static final String KEY_ID = "ID";
-        public static final String KEY_TYPE = "Type";
-        public static final String KEY_QUESTION = "Question";
-        public static final String KEY_ANSWER1 = "Answer1";
+        public static final String KEY_ID = "ID"; //primary Key
+        public static final String KEY_TYPE = "Type"; //the type of question, 1 for MC, 2 for TF, 3 for Numeric
+        public static final String KEY_QUESTION = "Question"; //The question, used by all question types
+        public static final String KEY_ANSWER1 = "Answer1"; //Answer1 through 4 hold answers for MC questions
         public static final String KEY_ANSWER2 = "Answer2";
         public static final String KEY_ANSWER3 = "Answer3";
         public static final String KEY_ANSWER4 = "Answer4";
-        public static final String KEY_NUMANSWER = "Numeric_Answer";
-        public static final String KEY_PRECISION = "Precision";
-        public static final String KEY_CORRECT = "Correct_Answer";
+        public static final String KEY_NUMANSWER = "Numeric_Answer"; //Hold answer for numeric question
+        public static final String KEY_PRECISION = "Precision"; //holds the precision of a numeric questions
+        public static final String KEY_CORRECT = "Correct_Answer"; //stores either the number of which of the MC answers is correct, or 1 for True, 2 for False
 
         public QuizDatabaseHelper(Context ctx) {
             super(ctx, DATABASE_NAME, null, VERSION_NUM);
@@ -561,6 +584,7 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
+    //Manages background thread for parsing of XML
     private class QuizQuery extends AsyncTask<String, Integer, String> {
         int i = 0;
         MCQuestion MCquestion = new MCQuestion();

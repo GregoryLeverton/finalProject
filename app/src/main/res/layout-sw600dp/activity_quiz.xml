@@ -11,6 +11,7 @@
         android:id="@+id/list"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_above="@id/new_MC"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
 

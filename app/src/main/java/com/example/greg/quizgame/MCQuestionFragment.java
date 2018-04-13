@@ -1,4 +1,7 @@
 package com.example.greg.quizgame;
+/**
+ * Created by Greg Leverton on 2018-03-30.
+ */
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -42,13 +45,9 @@ public class MCQuestionFragment extends Fragment {
         View gui = inflater.inflate(R.layout.activity_mc_question_fragment, container, false);
         QuestionView = (EditText) gui.findViewById(R.id.questionView);
         A1View = (EditText) gui.findViewById(R.id.a1View);
-        ;
         A2View = (EditText) gui.findViewById(R.id.a2View);
-        ;
         A3View = (EditText) gui.findViewById(R.id.a3View);
-        ;
         A4View = (EditText) gui.findViewById(R.id.a4View);
-        ;
         CorrectView = (EditText) gui.findViewById(R.id.correctView);
 
         update = (Button) gui.findViewById(R.id.updateButton);
@@ -66,14 +65,12 @@ public class MCQuestionFragment extends Fragment {
         final long id = bundle.getLong("ID");
         final long id_inChat = bundle.getLong("IDInChat");
 
-
         QuestionView.setText(question);
         A1View.setText(A1);
         A2View.setText(A2);
         A3View.setText(A3);
         A4View.setText(A4);
         CorrectView.setText(cor);
-
 
         delete.setOnClickListener((view) -> {
                     if (isTablet) {

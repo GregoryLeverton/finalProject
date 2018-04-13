@@ -2,17 +2,19 @@ package com.example.greg.quizgame;
 
 
 /**
- * Created by Greg on 2018-04-10.
+ * Created by Greg on 2018-03-25.
  */
 
 public class NumericQuestion extends Question {
     private double answer;
     private int precision;
 
+    //no-arg constructor
     public NumericQuestion() {
         type = 3;
     }
 
+    //constructor
     public NumericQuestion(String Question, double answer, int precision) {
         setQuestion(Question);
         setAnswer(answer);
@@ -36,8 +38,4 @@ public class NumericQuestion extends Question {
         this.precision = precision;
     }
 
-    public boolean isCorrect(double attempt) {
-        return (Math.abs(getAnswer() - attempt) < Math.pow(10, -getPrecision()));
-
-    }
 }

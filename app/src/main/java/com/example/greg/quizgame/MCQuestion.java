@@ -1,7 +1,7 @@
 package com.example.greg.quizgame;
 
 /**
- * Created by Greg on 2018-04-10.
+ * Created by Greg Leverton on 2018-03-25.
  */
 
 public class MCQuestion extends Question {
@@ -11,10 +11,12 @@ public class MCQuestion extends Question {
     private String answer4;
     private int correctAnswer;
 
+    //no-arg constructor
     public MCQuestion() {
         type = 1;
     }
 
+    //constructor
     public MCQuestion(String question, String answer1, String answer2, String answer3, String answer4, int correct) {
         setQuestion(question);
         setAnswer1(answer1);
