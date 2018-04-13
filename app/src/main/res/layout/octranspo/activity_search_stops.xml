@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/CoordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context="com.example.greg.octranspo.SearchStopsActivity"
+    tools:context="com.meredith.jason.octranspoapp.SearchStopsActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <LinearLayout
@@ -13,7 +13,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:text="@string/oc_transpo_search_stops_stop_number_label"
+        android:text="Stop Number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

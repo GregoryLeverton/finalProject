@@ -32,6 +32,8 @@ public class MainActivity extends Activity {
         aboutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent startAppIntent = new Intent(MainActivity.this, InfoActivity.class);
+                startActivity(startAppIntent);
                 // Start the about page
             }
         });

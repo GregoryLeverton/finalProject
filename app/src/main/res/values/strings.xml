@@ -38,4 +38,14 @@
 
 
 
+
+
+
+    <string name="oc_transpo_route_schedules_title">OC Transpo Route Schedules</string>
+    <string name="oc_transpo_start_app_btn">Start App</string>
+    <string name="oc_transpo_about_btn">About</string>
+    <string name="oc_transpo_search_stops_stop_number_label">Stop Number</string>
+    <string name="oc_transpo_version_num">Version 1.0</string>
+    <string name="oc_transpo_how_to_use">To use app: type Bus Stop Num of your location and hit search. Tap route you want times for to see trip info</string>
+
 </resources>

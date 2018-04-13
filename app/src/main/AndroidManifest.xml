@@ -3,6 +3,7 @@
     package="com.example.greg.finalproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -39,6 +40,8 @@
         <activity
             android:name="com.example.greg.quizgame.QuestionStatsActivity"
             android:label="@string/title_activity_question_stats"></activity>
+
+        <activity android:name="com.example.greg.octranspo.InfoActivity"></activity>
     </application>
 
 </manifest>
