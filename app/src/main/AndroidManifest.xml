@@ -38,6 +38,9 @@
             android:theme="@style/Theme.AppCompat" />
         <activity android:name="com.example.greg.patientintake.PatientActivity" />
         <activity android:name="com.example.greg.movieform.MovieActivity" />
+     
+        <activity android:name="com.example.greg.octranspo.InfoActivity" />
+        <activity android:name="com.example.greg.octranspo.RouteDetailsActivity"></activity>
         <activity
             android:name="com.example.greg.quizgame.QuestionStatsActivity"
             android:label="@string/title_activity_question_stats"></activity>
