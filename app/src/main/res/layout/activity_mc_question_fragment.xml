@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.greg.quizgame.MCQuestionFragment">
+
+
+    <EditText
+        android:id="@+id/questionView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/a1View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/questionView"
+        android:inputType="text"
+        android:text="@string/answer" />
+
+    <EditText
+        android:id="@+id/a2View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/a1View"
+        android:inputType="text"
+        android:text="@string/answer" />
+
+    <EditText
+        android:id="@+id/a3View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/a2View"
+        android:inputType="text"
+        android:text="@string/answer" />
+
+    <EditText
+        android:id="@+id/a4View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/a3View"
+        android:inputType="text"
+        android:text="@string/answer" />
+
+    <EditText
+        android:id="@+id/correctView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/a4View"
+        android:inputType="number"
+        android:text="@string/correct" />
+
+
+    <Button
+        android:id="@+id/updateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/correctView"
+        android:text="@string/updateQ"
+
+        />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/correctView"
+        android:layout_toRightOf="@+id/updateButton"
+        android:text="@string/deleteQ"
+
+        />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/correctView"
+        android:layout_toRightOf="@+id/deleteButton"
+        android:text="@string/back"
+
+        />
+
+</RelativeLayout>

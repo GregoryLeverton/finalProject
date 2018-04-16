@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Created by jason on 21/03/18.
  */
 
-public class BusStopSearch  extends AsyncTask<Short, Integer, String> {
+public class BusStopSearch extends AsyncTask<Short, Integer, String> {
 
     public final static int SUCCESS = 0;
     public final static int ROUTE_NOT_FOUND = 1;
@@ -37,7 +37,7 @@ public class BusStopSearch  extends AsyncTask<Short, Integer, String> {
     private ArrayList<Route> routes;
 
     @Override
-    protected String doInBackground(Short... stopId)  {
+    protected String doInBackground(Short... stopId) {
         this.stopId = stopId[0];
 
         queryUrl = apiUrl + stopId[0].toString();
@@ -52,7 +52,7 @@ public class BusStopSearch  extends AsyncTask<Short, Integer, String> {
             routes = parser.parse();
             stopName = parser.getStopName();
             code = SUCCESS;
-        } catch(BusStopNotFoundException e) {
+        } catch (BusStopNotFoundException e) {
             code = ROUTE_NOT_FOUND;
         } catch (XmlPullParserException e) {
             e.printStackTrace();
@@ -96,7 +96,6 @@ public class BusStopSearch  extends AsyncTask<Short, Integer, String> {
         }
         return null;
     }
-
 
 
 }

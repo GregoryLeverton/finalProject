@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <item android:id="@+id/action_quiz"
+        android:title="Quiz"
+        android:icon="@drawable/quiz"
+        android:orderInCategory="101"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_patient"
+        android:title="Patient"
+        android:icon="@drawable/patient"
+        android:orderInCategory="102"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_movie"
+        android:title="Movie"
+        android:icon="@drawable/movie"
+        android:orderInCategory="103"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_oc"
+        android:title="OCTranspo"
+        android:icon="@drawable/bus"
+        android:orderInCategory="104"
+        app:showAsAction="always" />
+
+
+</menu>
