@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.greg.finalproject.R;
+import com.example.greg.octranspo.octranspo.RouteSearch;
 
 public class MainActivity extends Activity {
 
@@ -37,5 +38,13 @@ public class MainActivity extends Activity {
                 // Start the about page
             }
         });
+
+
+        new RouteSearch().execute("95", "Barrhaven Centre", "3000");
+
+
+
+
+
     }
 }

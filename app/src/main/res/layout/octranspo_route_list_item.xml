@@ -10,6 +10,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
+        android:minWidth="64dp"
+        android:gravity="end"
+        android:textAlignment="textEnd"
+        android:textSize="18pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
         android:width="64dp"
         android:gravity="end"
         android:textAlignment="textEnd"
@@ -21,5 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@+id/routeNumber" />
+        android:textSize="12pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/routeNumber"
+        app:layout_constraintTop_toTopOf="parent" /> 
 </android.support.constraint.ConstraintLayout>

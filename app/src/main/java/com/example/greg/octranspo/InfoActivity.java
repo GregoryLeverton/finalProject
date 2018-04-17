@@ -10,6 +10,6 @@ public class InfoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.oc_transpo_activity_info);
+        setContentView(R.layout.octranspo_activity_info);
     }
 }

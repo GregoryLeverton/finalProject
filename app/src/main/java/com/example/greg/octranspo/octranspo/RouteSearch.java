@@ -1,10 +1,14 @@
 package com.example.greg.octranspo.octranspo;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import static com.example.greg.octranspo.octranspo.BusStopSearch.*;
 
@@ -15,7 +19,7 @@ import static com.example.greg.octranspo.octranspo.BusStopSearch.*;
 public class RouteSearch extends AsyncTask<String, Integer, String>{
 
 
-    protected final static String apiUrl = "view-source:https://api.octranspo1.com/v1.2/GetNextTripsForStop?appID=223eb5c3&&apiKey=ab27db5b435b8c8819ffb8095328e775&";
+    protected final static String apiUrl = "https://api.octranspo1.com/v1.2/GetNextTripsForStop?appID=223eb5c3&&apiKey=ab27db5b435b8c8819ffb8095328e775&format=json&";
 
     private short routeNum;
     private String direction;
@@ -26,7 +30,7 @@ public class RouteSearch extends AsyncTask<String, Integer, String>{
     private int code;
 
 
-    private Trip nextTrip;
+    private ArrayList<Trip> trips;
 
     @Override
     protected String doInBackground(String... params) {
@@ -36,22 +40,26 @@ public class RouteSearch extends AsyncTask<String, Integer, String>{
         this.stopNum = Short.valueOf(params[2]);
 
         //stopNo=3017&routeNo=95
+        //95, Barrhaven Centre, 3000
 
 
         queryUrl = apiUrl + "stopNo=" + stopNum + "&routeNo=" + routeNum;
 
-        InputStream results = downloadUrl(queryUrl);
+        Log.i("RouteSearch", queryUrl);
 
-        RouteXmlParser parser = new RouteXmlParser(results);
+        String results = downloadUrl(queryUrl);
 
-        nextTrip = parser.getNextTrip();
+        RouteJsonParser parser = new RouteJsonParser(results, direction);
 
+        trips = parser.getTripsList();
 
         return null;
     }
 
-    private InputStream downloadUrl(String urlString) {
+    private String downloadUrl(String urlString) {
         try {
+            String result;
+
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(10000 /* milliseconds */);
@@ -60,11 +68,24 @@ public class RouteSearch extends AsyncTask<String, Integer, String>{
             conn.setDoInput(true);
             // Starts the query
             conn.connect();
-            return conn.getInputStream();
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"), 8);
+            StringBuilder sb = new StringBuilder();
+
+            String line = null;
+            while ((line = reader.readLine()) != null)
+            {
+                sb.append(line + "\n");
+            }
+            return sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
             code = DOWNLOAD_ERROR;
         }
         return null;
+    }
+
+    public ArrayList<Trip> getTrips() {
+        return trips;
     }
 }
