@@ -72,6 +72,7 @@ public class QuizActivity extends AppCompatActivity {
         cursor.moveToFirst();
         //load the questions from the database into the ListView
         while (!cursor.isAfterLast()) {
+
             Question question;
 
             if (cursor.getInt(cursor.getColumnIndex(QuizDatabaseHelper.KEY_TYPE)) == 1) {
@@ -98,7 +99,9 @@ public class QuizActivity extends AppCompatActivity {
             questions.add(question);
             Log.i(ACTIVITY_NAME, "SQL MESSAGE:" + cursor.getString(cursor.getColumnIndex(QuizDatabaseHelper.KEY_QUESTION)));
             cursor.moveToNext();
+
             }
+
 
         //load questions from webpage
         load.setOnClickListener(e -> {
@@ -532,6 +535,7 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
+            Log.i("in get VIEW", "AAAAAAAAAAAAAAAAAAAAAAAAA");
             LayoutInflater inflater = QuizActivity.this.getLayoutInflater();
             View result = null;
             result = inflater.inflate(R.layout.question, null);
