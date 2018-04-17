@@ -50,6 +50,59 @@
 
         />
 
+    <TextView
+        android:id="@+id/longestL"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/Num"
+
+
+        />
+
+    <TextView
+        android:id="@+id/longestQ"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/longestL"
+
+
+        />
+    <TextView
+        android:id="@+id/shortestL"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/longestQ"
+
+
+        />
+
+    <TextView
+        android:id="@+id/shortestQ"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/shortestL"
+
+
+        />
+    <TextView
+        android:id="@+id/average"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/shortestQ"
+
+
+        />
+
 
     <Button
         android:id="@+id/back"

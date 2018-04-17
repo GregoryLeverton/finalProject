@@ -35,7 +35,11 @@
     <string name="create">Pour créer une nouvelle question, sélectionnez l\'un des nouveaux boutons de question</string>
     <string name="editdelete">Sélectionnez une question à afficher, modifier ou supprimer</string>
     <string name="statinstructions">Sélectionnez le bouton \'Obtenir les statistiques de la question\' pour afficher les statistiques sur les questions créées </string>
-
+    <string name="shortest_question_l">La question la plus courte a une longueur de caractère de: </string>
+    <string name="longest_question_l">La plus longue question a une longueur de caractère de: </string>
+    <string name="shortest_question_q">La question la plus courte est: </string>
+    <string name="longest_question_q">La question la plus longue est: </string>
+    <string name="average_question_l">La question moyenne a une longueur de caractère de: </string>
 
 
 </resources>
