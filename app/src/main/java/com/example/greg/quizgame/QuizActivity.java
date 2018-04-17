@@ -37,6 +37,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static java.lang.Integer.MAX_VALUE;
+
 public class QuizActivity extends AppCompatActivity {
     protected static final String ACTIVITY_NAME = "QuizActivity";
     protected SQLiteDatabase db;
@@ -125,22 +127,42 @@ public class QuizActivity extends AppCompatActivity {
             int totMC = 0;
             int totTF = 0;
             int totNum = 0;
+            int shortest = MAX_VALUE;
+            int longest = 0;
+            int total = 0;
+            String shortQuestion = " ";
+            String longQuestion = " ";
             for (Question question : questions) {
                 if (question.getType() == 1) {
                     totMC++;
                 }
-                if (question.getType() == 2) {
+                else if (question.getType() == 2) {
                     totTF++;
                 }
-                if (question.getType() == 3) {
+                else if (question.getType() == 3) {
                     totNum++;
                 }
+                if(question.getQuestion().length()<shortest){
+                    shortest = question.getQuestion().length();
+                    shortQuestion = question.getQuestion();
+                }
+                if(question.getQuestion().length()>longest){
+                    longest = question.getQuestion().length();
+                    longQuestion = question.getQuestion();
+                }
+                total = total + question.getQuestion().length();
             }
             Bundle bundle = new Bundle();
             bundle.putInt("tot", questions.size());
             bundle.putInt("mc", totMC);
             bundle.putInt("tf", totTF);
             bundle.putInt("num", totNum);
+            bundle.putInt("short", shortest);
+            bundle.putInt("long", longest);
+            bundle.putInt("average", total/questions.size());
+            bundle.putString("longQ", longQuestion);
+            bundle.putString("shortQ", shortQuestion);
+
 
             Intent statsIntent = new Intent(QuizActivity.this, QuestionStatsActivity.class);
             statsIntent.putExtra("StatsItem", bundle);
