@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.greg.patientintake.PatientMain;
+
 public class StartActivity extends AppCompatActivity {
 
     @Override
@@ -49,7 +51,7 @@ public class StartActivity extends AppCompatActivity {
         buttonHarleen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent launchHarleenActivity = new Intent(StartActivity.this, com.example.greg.patientintake.PatientActivity.class);
+                Intent launchHarleenActivity = new Intent(StartActivity.this, PatientMain.class);
                 startActivity(launchHarleenActivity);
             }
         });
@@ -79,7 +81,7 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(launchGregActivity);
                 break;
             case  R.id.action_patient:
-                Intent launchHarleenActivity = new Intent(StartActivity.this, com.example.greg.patientintake.PatientActivity.class);
+                Intent launchHarleenActivity = new Intent(StartActivity.this, PatientMain.class);
                 startActivity(launchHarleenActivity);
                 break;
 
