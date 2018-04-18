@@ -69,6 +69,11 @@ public class PatientMain extends Activity implements AdapterView.OnItemSelectedL
         descriptionText = (EditText) findViewById(R.id.description);
         patientTypeText = (Spinner) findViewById(R.id.patient_type);
 
+
+/**
+ *Reference
+ * https://stackoverflow.com/questions/16581536/setonitemselectedlistener-of-spinner-does-not-call
+ */
         // Spinner click listener
         patientTypeText.setOnItemSelectedListener(this);
 
@@ -80,6 +85,9 @@ public class PatientMain extends Activity implements AdapterView.OnItemSelectedL
         type.add("Optometrist");
 
         //Create adapter for spinner and drop down list
+        /**
+         * Reference: https://stackoverflow.com/questions/6485158/custom-style-setdropdownviewresource-android-spinner
+         */
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, type);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         patientTypeText.setAdapter(dataAdapter);
@@ -102,7 +110,7 @@ public class PatientMain extends Activity implements AdapterView.OnItemSelectedL
 
                 //make name an mandatory entry
                 if (name.isEmpty()){
-                    nameText.setError("Please enter your name");
+                    nameText.setError("Name field is manadtory");
                     nameText.requestFocus();
                 }
                 else {
@@ -147,8 +155,15 @@ public class PatientMain extends Activity implements AdapterView.OnItemSelectedL
         });
     }
 
-    //Fragment manager to open the new fragments for Dentist, doctor and Optometrist
-    //Create toast message on slecting the three options
+
+    /**Fragment manager to open the new fragments for Dentist, doctor and Optometrist
+     * Create toast message on slecting the three options
+     * Reference: https://developer.android.com/reference/android/widget/AdapterView.OnItemSelectedListener.html
+     * @param parent: AdapterView: The AdapterView where the selection happened
+     * @param view: View: The view within the AdapterView that was clicked
+     * @param position: int: The position of the view in the adapter
+     * @param id: long: The row id of the item that is selected
+     */
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String selection = parent.getItemAtPosition(position).toString();
         FragmentManager fm = getFragmentManager();
@@ -178,7 +193,11 @@ public class PatientMain extends Activity implements AdapterView.OnItemSelectedL
 
 
 
+    /**
+     *Reference
+     * https://stackoverflow.com/questions/16581536/setonitemselectedlistener-of-spinner-does-not-call
+     */
     public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
+
     }
 }
