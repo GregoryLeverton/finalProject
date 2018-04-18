@@ -49,7 +49,10 @@ public class PatientMain extends Activity implements AdapterView.OnItemSelectedL
     Spinner patientTypeText;
     RadioGroup radioGender;
 
-
+    /**
+     * On create method, set content view (xml), get ids from xml
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,10 +73,10 @@ public class PatientMain extends Activity implements AdapterView.OnItemSelectedL
         patientTypeText = (Spinner) findViewById(R.id.patient_type);
 
 
-/**
- *Reference
- * https://stackoverflow.com/questions/16581536/setonitemselectedlistener-of-spinner-does-not-call
- */
+    /**
+    *Reference
+    * https://stackoverflow.com/questions/16581536/setonitemselectedlistener-of-spinner-does-not-call
+    */
         // Spinner click listener
         patientTypeText.setOnItemSelectedListener(this);
 
@@ -114,17 +117,12 @@ public class PatientMain extends Activity implements AdapterView.OnItemSelectedL
                     nameText.requestFocus();
                 }
                 else {
-                    Intent intent = new Intent(com.example.greg.patientintake.PatientMain.this, PatientDetails.class);
-                    intent.putExtra("name", name);
-                    intent.putExtra("address", address);
-                    intent.putExtra("age", age);
-                    intent.putExtra("birthday", birthday);
-                    intent.putExtra("phoneNumber", phoneNumber);
-                    intent.putExtra("healthCardNumber", healthCardNumber);
-                    intent.putExtra("gender", gender);
-                    intent.putExtra("description", description);
 
-                    //Call database helper and put the values in database using Contenet values
+                    /**
+                     * Call database helper and put the values in database using Contenet values
+                     * Creates an empty set of values using the default initial size . Put Adds values to the set.
+                     * Ref: https://stackoverflow.com/questions/15384550/android-sqlite-contentvalues-not-inserting
+                     */
                     PatientDatabaseHelper myDbHelper = new PatientDatabaseHelper(com.example.greg.patientintake.PatientMain.this);
                     SQLiteDatabase writableDb = myDbHelper.getWritableDatabase();
                     SQLiteDatabase readableDb = myDbHelper.getReadableDatabase();
@@ -137,6 +135,22 @@ public class PatientMain extends Activity implements AdapterView.OnItemSelectedL
                     cValues.put(Phone, phoneNumber);
                     cValues.put(Card, healthCardNumber);
                     cValues.put(Reason, description);
+
+                    /**
+                     * Reference: https://stackoverflow.com/questions/5265913/how-to-use-putextra-and-getextra-for-string-data
+                     *  Takes you to move from one activity to another activity,we have to use method putExtra();
+                     *  pass your values and retrieve them in the other Activity using AnyKeyName
+                     *  intent.putExtra("AnyKeyName", getText());
+                     */
+                    Intent intent = new Intent(com.example.greg.patientintake.PatientMain.this, PatientDetails.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("address", address);
+                    intent.putExtra("age", age);
+                    intent.putExtra("birthday", birthday);
+                    intent.putExtra("phoneNumber", phoneNumber);
+                    intent.putExtra("healthCardNumber", healthCardNumber);
+                    intent.putExtra("gender", gender);
+                    intent.putExtra("description", description);
 
                     Log.i("PatientMain", "Hello Harleen");
 

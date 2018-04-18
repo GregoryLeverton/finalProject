@@ -20,11 +20,19 @@ import android.widget.EditText;
 
 import com.example.greg.finalproject.R;
 
+
 public class DoctorFragment extends Fragment {
     EditText surgery;
     EditText allergy;
 
-    //Show Surgeries and allergies in the new fragment  when we select doctor
+    /**Create the view for this fragment, using the arguments given to it.Show Surgeries and allergies in the new fragment  when we select doctor
+     * Ref: https://developer.android.com/reference/android/app/Fragment.html
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return view
+     */
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_doctor_fragment, container, false);

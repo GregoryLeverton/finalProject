@@ -35,14 +35,24 @@ public class PatientDatabaseHelper extends SQLiteOpenHelper {
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
     }
 
-    //Create the database, execute query
+    /**
+     * Create the database, execute query
+      * @param db: database
+     */
+
     @Override
     public void onCreate(SQLiteDatabase db){
         String create_table_query = " CREATE TABLE "+TB_NAME+"("+ KEY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT," + Type+" TEXT,"+ Name+" Text,"+ Address+" TEXT,"+ Age+" TEXT,"+ DOB+" TEXT,"+ Gender+" TEXT,"+ Phone+" TEXT,"+ Card+" TEXT,"+ Reason+" TEXT);";
         db.execSQL(create_table_query);
         }
 
-    //Write query to upgrade database version
+    /**
+     * Write query to upgrade database version
+     * @param db: database
+     * @param oldVer: old version
+     * @param newVer: new version
+     */
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer) {
         Log.i("PatientDatabaseHelper", "Calling onUpgrade, old Version=" + oldVer + " newVersion=" + newVer);

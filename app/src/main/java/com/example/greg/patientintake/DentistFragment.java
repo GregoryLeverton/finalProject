@@ -19,7 +19,14 @@ public class DentistFragment extends Fragment {
 
    RadioGroup Brace, Benefit;
 
-   //Show Braces and medical benefits in the new fragment
+    /**Create the view for this fragment, using the arguments given to it.Show Braces and medical benefits in the new fragment
+     * Ref: https://developer.android.com/reference/android/app/Fragment.html
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return view
+     */
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
      View view = inflater.inflate(R.layout.activity_dentist_fragment,

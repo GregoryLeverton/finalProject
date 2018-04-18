@@ -28,6 +28,10 @@ public class PatientDetails extends Activity {
     String  name;
     TextView nameText;
 
+    /**
+     * On create function, set  content view and find name text
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
