@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -110,7 +111,11 @@ public class StopDetailsActivity extends Activity {
         cv.put(PreviousSearchDatabaseHelper.KEY_ID, stopId);
         cv.put(PreviousSearchDatabaseHelper.KEY_NAME, stopName);
 
-        db.insert(PreviousSearchDatabaseHelper.TABLE_NAME, "NullColumnName", cv);
+        try {
+            db.insertOrThrow(PreviousSearchDatabaseHelper.TABLE_NAME, "NullColumnName", cv);
+        } catch(SQLiteConstraintException e) {
+            Log.i("StopDetailsActivity", "Stop already exists in database");
+        }
 
         db.close();
     }
