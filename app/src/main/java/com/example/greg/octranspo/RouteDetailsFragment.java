@@ -95,7 +95,7 @@ public class RouteDetailsFragment extends Fragment {
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = getLayoutInflater();
+            LayoutInflater inflater = getActivity().getLayoutInflater();
 
             View result = inflater.inflate(R.layout.octranspo_route_detail_list_item, null);
 
