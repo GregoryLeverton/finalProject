@@ -128,13 +128,13 @@ public class PatientMain extends Activity implements AdapterView.OnItemSelectedL
                     SQLiteDatabase readableDb = myDbHelper.getReadableDatabase();
                     ContentValues cValues = new ContentValues();
                     cValues.put(Name, name);
-                    cValues.put(Address, address);
-                    cValues.put(Age, age);
                     cValues.put(DOB, birthday);
-                    cValues.put(Gender, gender);
-                    cValues.put(Phone, phoneNumber);
-                    cValues.put(Card, healthCardNumber);
+                    cValues.put(Age, age);
                     cValues.put(Reason, description);
+                    cValues.put(Phone, phoneNumber);
+                    cValues.put(Address, address);
+                    cValues.put(Card, healthCardNumber);
+                    cValues.put(Gender, gender);
 
                     /**
                      * Reference: https://stackoverflow.com/questions/5265913/how-to-use-putextra-and-getextra-for-string-data
@@ -144,15 +144,16 @@ public class PatientMain extends Activity implements AdapterView.OnItemSelectedL
                      */
                     Intent intent = new Intent(com.example.greg.patientintake.PatientMain.this, PatientDetails.class);
                     intent.putExtra("name", name);
+                    intent.putExtra("birthday", birthday);
                     intent.putExtra("address", address);
                     intent.putExtra("age", age);
-                    intent.putExtra("birthday", birthday);
+                    intent.putExtra("description", description);
                     intent.putExtra("phoneNumber", phoneNumber);
                     intent.putExtra("healthCardNumber", healthCardNumber);
                     intent.putExtra("gender", gender);
-                    intent.putExtra("description", description);
 
-                    Log.i("PatientMain", "Hello Harleen");
+
+                    Log.i("PatientMain", "Patient details saved");
 
                     startActivity(intent);
                 }
@@ -164,7 +165,7 @@ public class PatientMain extends Activity implements AdapterView.OnItemSelectedL
             @Override
             public void onClick(View v) {
                 finish();
-
+                Log.i("PatientMain", "Cancelled entry request, go back to main page");
             }
         });
     }

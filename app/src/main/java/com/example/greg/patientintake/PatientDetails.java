@@ -13,6 +13,7 @@ import android.content.Intent;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 
 import android.widget.Button;
@@ -39,7 +40,7 @@ public class PatientDetails extends Activity {
         nameText =(TextView)findViewById(R.id.name_entered);
 
         //Function to display the record of the patients name
-        displayNameOfPatient();
+        displayPatient();
 
         //When we click ok button take us back to start activity of the main page
         Button OK = (Button) findViewById(R.id.ok);
@@ -49,6 +50,7 @@ public class PatientDetails extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(PatientDetails.this, StartActivity.class);
                 startActivity(intent);
+                Log.i("PatientDetails", "Go back to main page");
             }
         });
 
@@ -59,15 +61,18 @@ public class PatientDetails extends Activity {
             @Override
             public void onClick(View v) {
             finish();
+                Log.i("PatientDetails", "Patient deleted");
             }
 
         });
     }
 
-    //Function to display the name of the patient
-    private void displayNameOfPatient () {
+    //birthday, age,description,phoneNumber,healthCardNumber,gender;
+    //Function to display the details of the patient
+    private void displayPatient () {
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         nameText.setText(name);
+
     }
 }
