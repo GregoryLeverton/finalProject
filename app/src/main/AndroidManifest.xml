@@ -37,7 +37,7 @@
             android:name="com.example.greg.quizgame.NumQuestionDetails"
             android:theme="@style/Theme.AppCompat" />
         <activity android:name="com.example.greg.patientintake.PatientActivity" />
-<<<<<<< HEAD
+
         <activity android:name="com.example.greg.movieform.MovieActivity" />
 
         <activity android:name="com.example.greg.octranspo.InfoActivity" />
@@ -48,14 +48,15 @@
             android:label="@string/title_activity_question_stats"></activity>
 
 
-=======
+
         <activity android:name="com.example.greg.movieform.ListMovieActivity" />
         <activity android:name="com.example.greg.movieform.MovieMain" />
+        <activity android:name="com.example.greg.movieform.MovieHelp" />
         <activity android:name="com.example.greg.movieform.AddMovie" />
         <activity android:name="com.example.greg.movieform.UpdateMovieActivity" />
-        <activity android:name="com.example.greg.octranspo.InfoActivity" />
+
         <activity android:name="com.example.greg.movieform.MovieDetailsActivity"></activity>
->>>>>>> TranMovie
+
     </application>
 
 </manifest>

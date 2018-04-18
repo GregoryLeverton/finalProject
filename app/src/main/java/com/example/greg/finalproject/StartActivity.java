@@ -40,7 +40,7 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
+
         buttonGreg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,34 +60,34 @@ public class StartActivity extends AppCompatActivity {
         buttonTran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent launchTranActivity = new Intent(StartActivity.this, com.example.greg.movieform.MovieActivity.class);
+                Intent launchTranActivity = new Intent(StartActivity.this, com.example.greg.movieform.MovieMain.class);
                 startActivity(launchTranActivity);
             }
         });
     }
 
-    public boolean onCreateOptionsMenu(Menu m){
-        getMenuInflater().inflate(R.menu.toolbar_menu, m );
+    public boolean onCreateOptionsMenu(Menu m) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, m);
         return true;
 
     }
 
-    public boolean onOptionsItemSelected(MenuItem mi){
+    public boolean onOptionsItemSelected(MenuItem mi) {
 
-        switch(mi.getItemId()){
+        switch (mi.getItemId()) {
             case R.id.action_quiz:
                 Log.d("Toolbar", "Option 1 selected");
 
                 Intent launchGregActivity = new Intent(StartActivity.this, com.example.greg.quizgame.QuizActivity.class);
                 startActivity(launchGregActivity);
                 break;
-            case  R.id.action_patient:
+            case R.id.action_patient:
                 Intent launchHarleenActivity = new Intent(StartActivity.this, com.example.greg.patientintake.PatientActivity.class);
                 startActivity(launchHarleenActivity);
                 break;
 
             case R.id.action_movie:
-                Intent launchTranActivity = new Intent(StartActivity.this, com.example.greg.movieform.MovieActivity.class);
+                Intent launchTranActivity = new Intent(StartActivity.this, com.example.greg.movieform.MovieMain.class);
                 startActivity(launchTranActivity);
 
                 break;
@@ -99,14 +99,6 @@ public class StartActivity extends AppCompatActivity {
 
         }
         return true;
-=======
-        buttonTran.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent launchTranActivity = new Intent(StartActivity.this, MovieMain.class);
-                startActivity(launchTranActivity);
-            }
-        });
->>>>>>> TranMovie
+
     }
 }

@@ -10,7 +10,7 @@
     <string name="jasonButton">Jason Meredith - OCTranspo Bus Route</string>
     <string name="patientButton">Im a patient intake form button</string>
     <string name="movieButton">Im a movie button</string>
-<<<<<<< HEAD
+
     <string name="message">MessageHere</string>
     <string name="ID">ID=</string>
     <string name="deleteQ">Delete Question</string>
@@ -36,10 +36,7 @@
     <string name="create">To create a new question, select on of the new question buttons</string>
     <string name="editdelete">Select a question to view, edit, or delete it</string>
     <string name="statinstructions">Select the \'Get Question Statistics\' button to view statistics about the created questions </string>
-=======
 
-
->>>>>>> TranMovie
     <string name="oc_transpo_route_schedules_title">OC Transpo Route Schedules</string>
     <string name="oc_transpo_start_app_btn">Start App</string>
     <string name="oc_transpo_about_btn">About</string>
