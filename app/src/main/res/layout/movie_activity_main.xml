@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.example.greg.movieform.MovieMain">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/addMovieButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="27dp"
+            android:text="@string/movie_addmovie" />
+        <Button
+            android:id="@+id/listMovieButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/movie_listmovie"
+            android:layout_below="@id/addMovieButton"
+            android:layout_marginTop="10pt"
+
+            />
+        <Button
+            android:id="@+id/aboutMovieButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/movie_help"
+            android:layout_below="@id/listMovieButton"
+            android:layout_marginTop="10pt"
+
+            />
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

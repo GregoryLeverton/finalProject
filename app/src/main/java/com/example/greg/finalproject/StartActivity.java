@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.greg.movieform.MovieMain;
+
 public class StartActivity extends AppCompatActivity {
 
     @Override
@@ -38,6 +40,7 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         buttonGreg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,5 +99,14 @@ public class StartActivity extends AppCompatActivity {
 
         }
         return true;
+=======
+        buttonTran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchTranActivity = new Intent(StartActivity.this, MovieMain.class);
+                startActivity(launchTranActivity);
+            }
+        });
+>>>>>>> TranMovie
     }
 }
