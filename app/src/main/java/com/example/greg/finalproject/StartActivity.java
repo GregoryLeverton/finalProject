@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.greg.movieform.MovieMain;
+
 public class StartActivity extends AppCompatActivity {
 
     @Override
@@ -22,6 +24,14 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent launchJasonActivity = new Intent(StartActivity.this, com.example.greg.octranspo.MainActivity.class);
                 startActivity(launchJasonActivity);
+            }
+        });
+
+        buttonTran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchTranActivity = new Intent(StartActivity.this, MovieMain.class);
+                startActivity(launchTranActivity);
             }
         });
     }

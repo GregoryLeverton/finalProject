@@ -30,7 +30,9 @@
         <activity android:name="com.example.greg.movieform.ListMovieActivity" />
         <activity android:name="com.example.greg.movieform.MovieMain" />
         <activity android:name="com.example.greg.movieform.AddMovie" />
-        <activity android:name="com.example.greg.octranspo.InfoActivity"></activity>
+        <activity android:name="com.example.greg.movieform.UpdateMovieActivity" />
+        <activity android:name="com.example.greg.octranspo.InfoActivity" />
+        <activity android:name="com.example.greg.movieform.MovieDetailsActivity"></activity>
     </application>
 
 </manifest>
