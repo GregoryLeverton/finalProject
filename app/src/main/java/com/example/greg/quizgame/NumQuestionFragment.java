@@ -80,8 +80,12 @@ public class NumQuestionFragment extends Fragment {
 
         update.setOnClickListener((view) -> {
             String newQ = QuestionView.getText().toString();
-            double newAnswer = Double.parseDouble(AnswerView.getText().toString());
-            int newPres = Integer.parseInt(PrecisionView.getText().toString());
+            double newAnswer =0;
+            int newPres=0;
+            if(!(AnswerView.getText().toString().equals(""))&&!(PrecisionView.getText().toString().equals(""))) {
+                newAnswer = Double.parseDouble(AnswerView.getText().toString());
+                newPres = Integer.parseInt(PrecisionView.getText().toString());
+            }
 
             if (isTablet) {
                 QuizActivity qa = (QuizActivity) getActivity();

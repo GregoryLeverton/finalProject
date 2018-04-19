@@ -74,6 +74,7 @@ public class QuizActivity extends AppCompatActivity {
         cursor.moveToFirst();
         //load the questions from the database into the ListView
         while (!cursor.isAfterLast()) {
+
             Question question;
 
             if (cursor.getInt(cursor.getColumnIndex(QuizDatabaseHelper.KEY_TYPE)) == 1) {
@@ -100,7 +101,9 @@ public class QuizActivity extends AppCompatActivity {
             questions.add(question);
             Log.i(ACTIVITY_NAME, "SQL MESSAGE:" + cursor.getString(cursor.getColumnIndex(QuizDatabaseHelper.KEY_QUESTION)));
             cursor.moveToNext();
+
             }
+
 
         //load questions from webpage
         load.setOnClickListener(e -> {
@@ -188,7 +191,12 @@ public class QuizActivity extends AppCompatActivity {
                             String a2 = answer2.getText().toString();
                             String a3 = answer3.getText().toString();
                             String a4 = answer4.getText().toString();
-                            int c = Integer.parseInt(correct.getText().toString());
+                            int c=0;
+
+                            if(!(correct.getText().toString().equals(("")))) {
+                                 c = Integer.parseInt(correct.getText().toString());
+                            }
+                            if (!q.equals("")){
                             //save to ArrayList
                             MCQuestion question = new MCQuestion(q, a1, a2, a3, a4, c);
                             questions.add(question);
@@ -206,6 +214,12 @@ public class QuizActivity extends AppCompatActivity {
                             cursor = db.rawQuery("SELECT * FROM " + QuizDatabaseHelper.TABLE_NAME + ";", null);
                             cursor.moveToFirst();
                             questionAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
+                        }else{
+                                CharSequence text = "Invalid, must enter a question";
+                                int duration = Toast.LENGTH_SHORT; 
+                                Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
+                                toast.show();
+                            }
                         }
                     });
 
@@ -238,6 +252,7 @@ public class QuizActivity extends AppCompatActivity {
                             //get data from fields
                             EditText ques =view.findViewById(R.id.newTFQuestion);
                             String q = ques.getText().toString();
+                            if (!q.equals("")){
                             //save to arrayList
                             TFQuestion question = new TFQuestion(q, tfA == 1);
                             questions.add(question);
@@ -250,6 +265,12 @@ public class QuizActivity extends AppCompatActivity {
                             cursor = db.rawQuery("SELECT * FROM " + QuizDatabaseHelper.TABLE_NAME + ";", null);
                             cursor.moveToFirst();
                             questionAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
+                            }else{
+                                CharSequence text = "Invalid, must enter a question";
+                                int duration = Toast.LENGTH_SHORT;
+                                Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
+                                toast.show();
+                            }
                         }
                     });
                     builder1.setNegativeButton(R.string.newQCancel, new DialogInterface.OnClickListener() {
@@ -272,8 +293,15 @@ public class QuizActivity extends AppCompatActivity {
                             EditText answer = view.findViewById(R.id.answer);
                             EditText precision = view.findViewById(R.id.precision);
                             String q = ques.getText().toString();
-                            double a = Double.parseDouble(answer.getText().toString());
-                            int p = Integer.parseInt(precision.getText().toString());
+                            double a =0;
+                            if(!(answer.getText().toString().equals(""))) {
+                                a = Double.parseDouble(answer.getText().toString());
+                            }
+                            int p =0;
+                            if(!(precision.getText().toString().equals(""))) {
+                                p = Integer.parseInt(precision.getText().toString());
+                            }
+                            if (!q.equals("")){
                             //save to arrayList
                             NumericQuestion question = new NumericQuestion(q, a, p);
                             questions.add(question);
@@ -287,6 +315,12 @@ public class QuizActivity extends AppCompatActivity {
                             cursor = db.rawQuery("SELECT * FROM " + QuizDatabaseHelper.TABLE_NAME + ";", null);
                             cursor.moveToFirst();
                             questionAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
+                        }else{
+                            CharSequence text = "Invalid, must enter a question";
+                            int duration = Toast.LENGTH_SHORT;
+                            Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
+                            toast.show();
+                        }
                         }
                     });
                     builder1.setNegativeButton(R.string.newQCancel, new DialogInterface.OnClickListener() {
@@ -299,7 +333,7 @@ public class QuizActivity extends AppCompatActivity {
         );
         //set actions for when a question is clocked on
         questionsList.setOnItemClickListener((adapterView, view, position, id) -> {
-            Log.i("WHAT THE CRAP", "position: "+position+" id: "+id);
+
             int type = questionAdapter.getItem(position).getType();
             if (type == 1) { //MC question
                 String ques = questionAdapter.getItem(position).getQuestion();
@@ -403,13 +437,14 @@ public class QuizActivity extends AppCompatActivity {
                 cursor = db.rawQuery("SELECT * FROM " + QuizDatabaseHelper.TABLE_NAME + ";", null);
                 cursor.moveToFirst();
                 questionAdapter.notifyDataSetChanged();
-                CharSequence text = "Question deleted";// "Switch is Off"
-                int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
-                Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
+                CharSequence text = "Question deleted";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(getApplicationContext(), text, duration);
                 toast.show();
             } else if (extras.getInt("action") == 2) { //the user selected update
                 long id = extras.getLong("UpdateID");
                 long id_inList = extras.getLong("IDInChat");
+                if(!(extras.getString("Question")).equals("")) {
                 //delete question
                 db.delete(QuizDatabaseHelper.TABLE_NAME, QuizDatabaseHelper.KEY_ID + " = ?", new String[]{Long.toString(id)});//.execSQL(query);
                 questions.remove((int) id_inList);
@@ -417,23 +452,31 @@ public class QuizActivity extends AppCompatActivity {
                 cursor.moveToFirst();
                 questionAdapter.notifyDataSetChanged();
                 //create new question with updated information
-                if (extras.getInt("type") == 1) { //MC question
-                    String q = extras.getString("Question");
-                    String a1 = extras.getString("Answer1");
-                    String a2 = extras.getString("Answer2");
-                    String a3 = extras.getString("Answer3");
-                    String a4 = extras.getString("Answer4");
-                    int c = extras.getInt("Correct");
-                    updateMC(q, a1, a2, a3, a4, c);
-                } else if (extras.getInt("type") == 2) { //TF question
-                    String q = extras.getString("Question");
-                    int a1 = extras.getInt("Answer");
-                    updateTF(q, a1);
-                } else if (extras.getInt("type") == 3) { //numeric question
-                    String q = extras.getString("Question");
-                    double a1 = extras.getDouble("Answer");
-                    int pres = extras.getInt("Precision");
-                    updateNum(q, a1, pres);
+
+                    if (extras.getInt("type") == 1) { //MC question
+
+                        String q = extras.getString("Question");
+                        String a1 = extras.getString("Answer1");
+                        String a2 = extras.getString("Answer2");
+                        String a3 = extras.getString("Answer3");
+                        String a4 = extras.getString("Answer4");
+                        int c = extras.getInt("Correct");
+                        updateMC(q, a1, a2, a3, a4, c);
+                    } else if (extras.getInt("type") == 2) { //TF question
+                        String q = extras.getString("Question");
+                        int a1 = extras.getInt("Answer");
+                        updateTF(q, a1);
+                    } else if (extras.getInt("type") == 3) { //numeric question
+                        String q = extras.getString("Question");
+                        double a1 = extras.getDouble("Answer");
+                        int pres = extras.getInt("Precision");
+                        updateNum(q, a1, pres);
+                    }
+                }else{
+                    CharSequence text = "Invalid, must enter a question";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
+                    toast.show();
                 }
             }
         }
@@ -460,9 +503,9 @@ public class QuizActivity extends AppCompatActivity {
         cursor = db.rawQuery("SELECT * FROM " + QuizDatabaseHelper.TABLE_NAME + ";", null);
         cursor.moveToFirst();
         questionAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
-        CharSequence text = "Question updated";// "Switch is Off"
-        int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
-        Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
+        CharSequence text = "Question updated";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getApplicationContext(), text, duration);
         toast.show();
     }
 
@@ -480,8 +523,8 @@ public class QuizActivity extends AppCompatActivity {
         cursor = db.rawQuery("SELECT * FROM " + QuizDatabaseHelper.TABLE_NAME + ";", null);
         cursor.moveToFirst();
         questionAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
-        CharSequence text = "Question updated";// "Switch is Off"
-        int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
+        CharSequence text = "Question updated";
+        int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
         toast.show();
     }
@@ -502,8 +545,8 @@ public class QuizActivity extends AppCompatActivity {
         cursor = db.rawQuery("SELECT * FROM " + QuizDatabaseHelper.TABLE_NAME + ";", null);
         cursor.moveToFirst();
         questionAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
-        CharSequence text = "Question updated";// "Switch is Off"
-        int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
+        CharSequence text = "Question updated";
+        int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
         toast.show();
     }
@@ -518,8 +561,8 @@ public class QuizActivity extends AppCompatActivity {
         cursor.moveToFirst();
         questionAdapter.notifyDataSetChanged();
         if (deleteOnly) {
-            CharSequence text = "Question deleted";// "Switch is Off"
-            int duration = Toast.LENGTH_SHORT; //= Toast.LENGTH_LONG if Off
+            CharSequence text = "Question deleted";
+            int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
             toast.show();
         }
@@ -554,6 +597,7 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
+
             LayoutInflater inflater = QuizActivity.this.getLayoutInflater();
             View result = null;
             result = inflater.inflate(R.layout.question, null);
@@ -570,7 +614,7 @@ public class QuizActivity extends AppCompatActivity {
     //Database Helper, defines and manages the database of questions
     public class QuizDatabaseHelper extends SQLiteOpenHelper {
         public static final String DATABASE_NAME = "Questions.db";
-        public static final int VERSION_NUM = 3;
+        public static final int VERSION_NUM = 2;
         public static final String TABLE_NAME = "Questions";
         public static final String KEY_ID = "ID"; //primary Key
         public static final String KEY_TYPE = "Type"; //the type of question, 1 for MC, 2 for TF, 3 for Numeric
@@ -711,7 +755,7 @@ public class QuizActivity extends AppCompatActivity {
         }
         //gui thread
         public void onPostExecute(String result) {
-            //now you can post your result to the GUI
+            //Update ListBiew
             questionAdapter.notifyDataSetChanged();
             Snackbar.make(findViewById(R.id.loadxml), "Questions Loaded", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
