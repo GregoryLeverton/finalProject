@@ -50,6 +50,11 @@ public class QuizActivity extends AppCompatActivity {
     int tfA = 1; //this variable is related to how true or false answers are changed
     QuestionAdapter questionAdapter;
 
+
+    /**
+     * onCreate()
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(ACTIVITY_NAME, "In onCreate()");
@@ -216,7 +221,7 @@ public class QuizActivity extends AppCompatActivity {
                             questionAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
                         }else{
                                 CharSequence text = "Invalid, must enter a question";
-                                int duration = Toast.LENGTH_SHORT; 
+                                int duration = Toast.LENGTH_SHORT;
                                 Toast toast = Toast.makeText(getApplicationContext(), text, duration); //this is the ListActivity
                                 toast.show();
                             }
@@ -423,7 +428,13 @@ public class QuizActivity extends AppCompatActivity {
         });
     }
 
-    //return from new activity, when on phone
+
+    /**
+     * return from editing a question, when on phone
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
@@ -481,7 +492,17 @@ public class QuizActivity extends AppCompatActivity {
             }
         }
     }
-    //update a MC question
+
+
+    /**
+     * update a MC question
+     * @param ques
+     * @param ans1
+     * @param ans2
+     * @param ans3
+     * @param ans4
+     * @param correct
+     */
     public void updateMC(String ques, String ans1, String ans2, String ans3, String ans4, int correct) {
         String q = ques;
         String a1 = ans1;
@@ -509,7 +530,13 @@ public class QuizActivity extends AppCompatActivity {
         toast.show();
     }
 
-    //update a TF question
+
+
+    /**
+     * update a TF question
+     * @param ques
+     * @param ans
+     */
     public void updateTF(String ques, int ans) {
         String q = ques;
         int a1 = ans;
@@ -529,7 +556,12 @@ public class QuizActivity extends AppCompatActivity {
         toast.show();
     }
 
-    //update numeric question
+    /**
+     * Update a numeric question
+     * @param ques
+     * @param ans
+     * @param pres
+     */
     public void updateNum(String ques, double ans, int pres) {
         String q = ques;
         double a1 = ans;
@@ -551,7 +583,14 @@ public class QuizActivity extends AppCompatActivity {
         toast.show();
     }
 
-    //delete a question from the tablet
+
+
+    /**
+     * delete a question from the tablet
+     * @param idInDatabase
+     * @param idInList
+     * @param deleteOnly
+     */
     public void deleteForTablet(long idInDatabase, long idInList, boolean deleteOnly) {
         long id = idInDatabase;
         long id_inList = idInList;
@@ -577,7 +616,11 @@ public class QuizActivity extends AppCompatActivity {
         tfA = tf;
     }
 
-    //ArrayAdapter to manage the ArrayList of questions
+
+
+    /**
+     * ArrayAdapter to manage the ArrayList of questions
+     */
     private class QuestionAdapter extends ArrayAdapter<Question> {
         QuestionAdapter(Context ctx) {
             super(ctx, 0);
@@ -611,7 +654,11 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-    //Database Helper, defines and manages the database of questions
+
+
+    /**
+     * Database Helper, defines and manages the database of questions
+     */
     public class QuizDatabaseHelper extends SQLiteOpenHelper {
         public static final String DATABASE_NAME = "Questions.db";
         public static final int VERSION_NUM = 2;
@@ -650,7 +697,10 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-    //Manages background thread for parsing of XML
+    
+    /**
+     * Manages background thread for parsing of XML
+     */
     private class QuizQuery extends AsyncTask<String, Integer, String> {
         int i = 0;
         MCQuestion MCquestion = new MCQuestion();
