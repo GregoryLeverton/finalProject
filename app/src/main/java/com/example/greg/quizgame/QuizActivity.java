@@ -697,7 +697,7 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-    
+
     /**
      * Manages background thread for parsing of XML
      */
