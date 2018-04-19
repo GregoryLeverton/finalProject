@@ -95,7 +95,10 @@ public class MCQuestionFragment extends Fragment {
             String newA2 = A2View.getText().toString();
             String newA3 = A3View.getText().toString();
             String newA4 = A4View.getText().toString();
-            int newCor = Integer.parseInt(CorrectView.getText().toString());
+            int newCor = 0;
+            if(!(CorrectView.getText().toString().equals(""))) {
+                newCor = Integer.parseInt(CorrectView.getText().toString());
+            }
 
             if (isTablet) {
                 QuizActivity qa = (QuizActivity) getActivity();
