@@ -16,11 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-<<<<<<< HEAD
+
 import com.example.greg.movieform.MovieMain;
-=======
+
 import com.example.greg.patientintake.PatientMain;
->>>>>>> harleen
+
 
 public class StartActivity extends AppCompatActivity {
 
@@ -85,13 +85,10 @@ public class StartActivity extends AppCompatActivity {
                 Intent launchGregActivity = new Intent(StartActivity.this, com.example.greg.quizgame.QuizActivity.class);
                 startActivity(launchGregActivity);
                 break;
-<<<<<<< HEAD
-            case R.id.action_patient:
-                Intent launchHarleenActivity = new Intent(StartActivity.this, com.example.greg.patientintake.PatientActivity.class);
-=======
+
+
             case  R.id.action_patient:
                 Intent launchHarleenActivity = new Intent(StartActivity.this, PatientMain.class);
->>>>>>> harleen
                 startActivity(launchHarleenActivity);
                 break;
 
