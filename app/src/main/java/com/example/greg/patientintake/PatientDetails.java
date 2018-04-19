@@ -26,8 +26,8 @@ import java.util.ArrayList;
 
 public class PatientDetails extends Activity {
 
-    String  name;
-    TextView nameText;
+    String  name, birthday, age, gender, description,  phoneNumber, address, healthCardNumber;
+    TextView nameText, birthdayText, ageText, genderText, descriptionText, phoneNumberText, addressText, healthCardNumberText;
 
     /**
      * On create function, set  content view and find name text
@@ -37,7 +37,16 @@ public class PatientDetails extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_details);
-        nameText =(TextView)findViewById(R.id.name_entered);
+
+        //Find view by ids
+        nameText =(TextView)findViewById(R.id.entered_name);
+        birthdayText=(TextView)findViewById(R.id.entered_birthday);
+        ageText=(TextView)findViewById(R.id.entered_age);
+        genderText=(TextView)findViewById(R.id.entered_gender);
+        descriptionText=(TextView)findViewById(R.id.entered_description);
+        phoneNumberText=(TextView)findViewById(R.id.entered_phoneNumber);
+        addressText=(TextView)findViewById(R.id.entered_address);
+        healthCardNumberText=(TextView)findViewById(R.id.entered_healthCardNumber);
 
         //Function to display the record of the patients name
         displayPatient();
@@ -71,8 +80,31 @@ public class PatientDetails extends Activity {
     //Function to display the details of the patient
     private void displayPatient () {
         Intent intent = getIntent();
+
         name = intent.getStringExtra("name");
         nameText.setText(name);
+
+        birthday = intent.getStringExtra("birthday");
+        birthdayText.setText(birthday);
+
+        age = intent.getStringExtra("age");
+        ageText.setText(age);
+
+        address = intent.getStringExtra("address");
+        addressText.setText(address);
+
+        description = intent.getStringExtra("description");
+        descriptionText.setText(description);
+
+        phoneNumber = intent.getStringExtra("phoneNumber");
+        phoneNumberText.setText(phoneNumber);
+
+        healthCardNumber = intent.getStringExtra("healthCardNumber");
+        healthCardNumberText.setText(healthCardNumber);
+
+        gender = intent.getStringExtra("gender");
+        genderText.setText(gender);
+
 
     }
 }

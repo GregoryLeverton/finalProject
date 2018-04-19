@@ -10,21 +10,162 @@
     android:layout_height="match_parent"
     tools:context="com.example.greg.patientintake.PatientDetails">
     <LinearLayout
-        android:id="@+id/line1"
-        android:layout_width="match_parent"
+        android:id="@+id/n"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name: "
+            android:id="@+id/namefield"
             />
         <TextView
-            android:id="@+id/name_entered"
+            android:id="@+id/entered_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/namefield"
            />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/n"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Birthday: "
+            android:id="@+id/birthdayfield"
+            />
+        <TextView
+            android:id="@+id/entered_birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/birthdayfield"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/b"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Age: "
+            android:id="@+id/agefield"
+            />
+        <TextView
+            android:id="@+id/entered_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/agefield"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/g"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/a"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gender: "
+            android:id="@+id/genderfield"
+            />
+        <TextView
+            android:id="@+id/entered_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/genderfield"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/g"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Discription: "
+            android:id="@+id/descriptionfield"
+            />
+        <TextView
+            android:id="@+id/entered_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/discriptionfield"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/d"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone number: "
+            android:id="@+id/phoneNumberfield"
+            />
+        <TextView
+            android:id="@+id/entered_phoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/phoneNumberfield"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/p"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address: "
+            android:id="@+id/addressfield"
+            />
+        <TextView
+            android:id="@+id/entered_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/addressfield"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Health card number: "
+            android:id="@+id/HCfield"
+            />
+        <TextView
+            android:id="@+id/entered_healthCardNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/HCfield"
+            />
     </LinearLayout>
 
     <LinearLayout
